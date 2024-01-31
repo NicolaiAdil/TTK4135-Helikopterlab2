@@ -88,3 +88,39 @@ if plot_elev_response
     legend('norm error', 'norm input')
     title('Elevation closed loop response')
 end
+
+%% Simulation and data saving
+lab_day = 1; %For example 1,2,3,4
+test_condition = 'low_kp'; %Descpritive of what we're doing
+model_name = 'helicopter';
+
+set_param(model_name, 'SimulationCommand', 'start')
+while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
+    pause(0.5);
+end
+
+file_name=sprintf('LabDay%d_%s.mat',lab_day, test_condition);
+save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate');
+
+%% Plotting data
+% plot_file = file_name;
+% time = plot_file(:,1);
+% travel = plot_file(:,2);
+% travel_rate = plot_file(:,3);
+% % pitch = plot_file.pitch;
+% % pitch_rate = plot_file.pitch_rate;
+% % elevation = plot_file.elevation;
+% % elevation_rate = plot_file.elevation_rate;
+% 
+% figure;
+% subplot(2,1,1); 
+% plot(time,travel)
+% xlabel('Time')
+% ylabel('Travel')
+% title('Travel vs Time')
+% 
+% subplot(2,1,2); 
+% plot(time,travel_rate)
+% xlabel('Time')
+% ylabel('Travel Rate')
+% title('Travel Rate vs Time')
