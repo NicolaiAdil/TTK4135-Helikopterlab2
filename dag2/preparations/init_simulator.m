@@ -162,6 +162,12 @@ x2  = [zero_padding; x2; zero_padding];
 x3  = [zero_padding; x3; zero_padding];
 x4  = [zero_padding; x4; zero_padding];
 
+t = 0:delta_t:delta_t*(length(u)-1);
+plot(t,x1*180/pi), grid
+ylabel("travel")
+
+
+
 u_simulink = timeseries(u,t);
 
 
