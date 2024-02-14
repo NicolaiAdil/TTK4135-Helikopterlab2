@@ -92,7 +92,7 @@ end
 %% Simulation and data saving
 lab_day = 1; %For example 1,2,3,4
 test_condition = 'low_kp'; %Descpritive of what we're doing
-model_name = 'helicopter';
+model_name = 'helicopter'; %Don't change this
 
 set_param(model_name, 'SimulationCommand', 'start')
 while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
