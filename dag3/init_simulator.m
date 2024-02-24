@@ -180,10 +180,7 @@ x_star = [x1_star;
 t_u = 0:delta_t:delta_t*(length(u_star)-1);
 t_x = 0:delta_t:delta_t*(length(x1_star)-1);
 
-
-
-
-
+%Export optimal u and x to simulink
 
 u_simulink = timeseries(u_star,t_u);
 x1_simulink = timeseries(x1_star,t_x);
