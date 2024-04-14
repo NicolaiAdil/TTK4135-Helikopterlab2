@@ -1,6 +1,6 @@
 % TTK4135 - Helicopter lab
 % Hints/template for problem 2.
-% Updated spring 2018, Andreas L. Flåten
+% Updated spring 2018, Andreas L. Flï¿½ten
 
 %run('init08.m')   % closes all figures, clears all and clc + init parameters
 
@@ -87,6 +87,7 @@ end
 % Extract control inputs and states
 u1 = [Z(N*mx+1:mu:n);Z(n-1)];           % Control input 1 from solution
 u2 = [Z(N*mx+2:mu:n);Z(n)];             % Control input 2 from solution
+
 x1 = [x0(1);Z(1:mx:N*mx)];              % State x1 from solution
 x2 = [x0(2);Z(2:mx:N*mx)];              % State x2 from solution
 x3 = [x0(3);Z(3:mx:N*mx)];              % State x3 from solution
@@ -110,19 +111,22 @@ x6  = [zero_padding; x6; zero_padding];
 t = 0:delta_t:delta_t*(length(u1)-1);
 
 figure(2)
-subplot(511)
+subplot(611)
 stairs(t,u1),grid
 ylabel('u1')
-subplot(512)
+subplot(612)
+stairs(t,u2),grid
+ylabel('u2')
+subplot(613)
 plot(t,x1,'m',t,x1,'mo'),grid
 ylabel('lambda')
-subplot(513)
+subplot(614)
 plot(t,x2,'m',t,x2','mo'),grid
 ylabel('r')
-subplot(514)
+subplot(615)
 plot(t,x3,'m',t,x3,'mo'),grid
 ylabel('p')
-subplot(515)
+subplot(616)
 plot(t,x5,'m',t,x5','mo'),grid
-xlabel('tid (s)'),ylabel('pdot')
+xlabel('tid (s)'),ylabel('e')
 
