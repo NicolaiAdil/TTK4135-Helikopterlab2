@@ -8,7 +8,7 @@
 %init_simulator; % Change this to the init file corresponding to your helicopter
 
 % Discrete time system model. x = [lambda r p p_dot e e_dot]'
-delta_t	= 0.25; % sampling time
+delta_t	= 0.1; % sampling time
 
 A = [ 1 delta_t 0                 0                  0                 0;
       0 1       -delta_t*K_2      0                  0                 0;
@@ -34,10 +34,10 @@ lambda_0 = pi;  lambda_f = 0;   lambda_t = 2*pi/3;
 time_padding = 5; sim_t = 10;
 
 % Time horizon and initialization
-N  = 40;                                  % Time horizon for states
+N  = 100;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
-z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
+z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
 
 % Bounds
@@ -127,6 +127,8 @@ subplot(615)
 plot(t,x3,'m',t,x3,'mo'),grid
 ylabel('p')
 subplot(616)
-plot(t,x5,'m',t,x5','mo'),grid
+plot(t,x5,'m',t,x5','mo'),grid; hold on;
+c = alpha*exp(-beta*(x1-lambda_t).^2);
+plot(t,c,"r")
 xlabel('tid (s)'),ylabel('e')
 

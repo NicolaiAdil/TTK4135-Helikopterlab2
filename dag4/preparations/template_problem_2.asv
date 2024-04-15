@@ -1,6 +1,6 @@
 % TTK4135 - Helicopter lab
 % Hints/template for problem 2.
-% Updated spring 2018, Andreas L. Flåten
+% Updated spring 2018, Andreas L. Fl�ten
 
 %run('init08.m')   % closes all figures, clears all and clc + init parameters
 
@@ -28,21 +28,15 @@ B = [ 0                0;
 mx = size(A,2); % Number of states (number of columns in A)
 mu = size(B,2); % Number of inputs(number of columns in B)
 
-% Initial values
-x1_0 = pi;                               % Lambda
-x2_0 = 0;                               % r
-x3_0 = 0;                               % p
-x4_0 = 0;   
-x5_0 = 0;
-x5_0 = 0;
-x0 = [x1_0 x2_0 x3_0 x4_0 x5_0 x6_0]';           % Initial values
-
+q1 = 1; q2 = q1;
+alpha = 0.2;    beta = 20;
+lambda_0 = pi;  lambda_f = 0;   lambda_t = 2*pi/3;
 time_padding = 5; sim_t = 10;
 
 % Time horizon and initialization
 N  = 40;                                  % Time horizon for states
-M  = N;
-n = N*mx+M*mu;% Time horizon for inputs
+M  = N;                                 % Time horizon for inputs
+n = N*mx+M*mu;
 z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
 
@@ -57,31 +51,29 @@ xu(3)   = uu;                           % Upper bound on state x3
 
 % Generate constraints on measurements and inputs
 [vlb,vub]       = gen_constraints(N,M,xl,xu,ul,uu); % hint: gen_constraints
-vlb(n)  = 0;                    % We want the last input to be zero
-vub(n)  = 0;                    % We want the last input to be zero
+vlb(N*mx+M*mu)  = 0;                    % We want the last input to be zero
+vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 
-             % Initial values
-% x_f = [lambda_f 0 0 0 0 0]';            % Final values
-% x = zeros(N*mx,1);
-% x(1:6) = x0;
+x0 = [lambda_0 0 0 0 0 0]';               % Initial values
+x_f = [lambda_f 0 0 0 0 0]';            % Final values
+x = zeros(N*6,1);
+x(1:6) = x0;
 Q1 = 2*diag([1 0 0 0 0 0]);
-q1 = 1;
-q2 = 1;
-P1 = diag([q1 q2]);
+P1 = 2*diag([q1 q2]);
 
 Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
-%c = zeros(size(Q,1),1);                                  % Generate c, this is the linear constant term in the QP
+c = zeros(size(Q,1),1);                                  % Generate c, this is the linear constant term in the QP
 
 %% Generate system matrixes for linear model
 Aeq = gen_aeq(A,B,N,mx,mu);             % Generate A, hint: gen_aeq
 beq = [A*x0; repmat(zeros(size(A*x0)),N-1,1)]; % Generate b
 
 %% Solve QP with unlinear constraint
-f = @(z) z'*Q*z;
+f = @(z) 1/2*z'*Q*z;
 opt = optimoptions('fmincon','Algorithm','sqp','MaxFunEvals',40000);
-
 tic
-[z, lambda] = fmincon(f, z0, [], [], Aeq, beq, vlb, vub, @constraints, opt); 
+[Z, ZVAL, EXITFLAG] = fmincon(f, z0, [], [], Aeq, beq, ...
+    vlb, vub, @constraints, opt); 
 t1=toc;
 
 % Calculate objective value
@@ -93,14 +85,15 @@ for i=1:N*mx+M*mu
 end
 
 % Extract control inputs and states
-u1 = [z(N*mx+1:mu:n);z(n-1)];           % Control input 1 from solution
-u2 = [z(N*mx+2:mu:n);z(n)];             % Control input 2 from solution
-x1 = [x0(1);z(1:mx:N*mx)];              % State x1 from solution
-x2 = [x0(2);z(2:mx:N*mx)];              % State x2 from solution
-x3 = [x0(3);z(3:mx:N*mx)];              % State x3 from solution
-x4 = [x0(4);z(4:mx:N*mx)];              % State x4 from solution
-x5 = [x0(5);z(5:mx:N*mx)];              % State x5 from solution
-x6 = [x0(6);z(6:mx:N*mx)];              % State x6 from solution
+u1 = [Z(N*mx+1:mu:n);Z(n-1)];           % Control input 1 from solution
+u2 = [Z(N*mx+2:mu:n);Z(n)];             % Control input 2 from solution
+
+x1 = [x0(1);Z(1:mx:N*mx)];              % State x1 from solution
+x2 = [x0(2);Z(2:mx:N*mx)];              % State x2 from solution
+x3 = [x0(3);Z(3:mx:N*mx)];              % State x3 from solution
+x4 = [x0(4);Z(4:mx:N*mx)];              % State x4 from solution
+x5 = [x0(5);Z(5:mx:N*mx)];              % State x5 from solution
+x6 = [x0(6);Z(6:mx:N*mx)];              % State x6 from solution
 
 num_pads = time_padding/delta_t;
 zero_padding = zeros(num_pads,1);
@@ -118,29 +111,29 @@ x6  = [zero_padding; x6; zero_padding];
 t = 0:delta_t:delta_t*(length(u1)-1);
 
 figure(2)
-subplot(811)
+subplot(611)
 stairs(t,u1),grid
 ylabel('u1')
-subplot(812)
+subplot(612)
 stairs(t,u2),grid
 ylabel('u2')
-subplot(813)
+subplot(613)
 plot(t,x1,'m',t,x1,'mo'),grid
 ylabel('lambda')
-subplot(814)
+subplot(614)
 plot(t,x2,'m',t,x2','mo'),grid
 ylabel('r')
-subplot(815)
+subplot(615)
 plot(t,x3,'m',t,x3,'mo'),grid
 ylabel('p')
-subplot(816)
-plot(t,x4,'m',t,x4','mo'),grid
-ylabel('pdot')
-subplot(817)
-plot(t,x5,'m',t,x5','mo'),grid
-ylabel('e')
-subplot(818)
-plot(t,x6,'m',t,x6','mo'),grid
-ylabel('edot')
-xlabel('tid (s)'),ylabel('pdot') 
+subplot(616)
+plot(t,x5,'m',t,x5','mo'),grid; hold on;
+alpha = 0.2;
+beta = 20;
+lambda_t = 2*pi/3;
+mx = 6;
+N = 40;
+c = alpha*exp(-beta*(x1-lambda_t).^2);
+plot(t,c,"r")
+xlabel('tid (s)'),ylabel('e')
 
