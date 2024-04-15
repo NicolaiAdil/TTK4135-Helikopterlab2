@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.14
+ * Model version              : 11.0
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Mar 13 11:21:07 2024
+ * C source code generated on : Mon Apr 15 12:19:58 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -24,7 +24,7 @@
 /* Block parameters (default storage) */
 P_helicopter_T helicopter_P = {
   /* Variable: K
-   * Referenced by: '<S6>/Gain'
+   * Referenced by: '<S5>/Gain'
    */
   { -0.899717403801827, -8.9722502887165223E-15, -3.200677747811179,
     -2.2967440473427295E-14, 1.7410327191946724, 5.3072780769853918E-15,
@@ -32,27 +32,27 @@ P_helicopter_T helicopter_P = {
     2.023009078786377, 1.0871125555699044E-15, 2.5786929371779506 },
 
   /* Variable: K_ed
-   * Referenced by: '<S4>/K_ed'
+   * Referenced by: '<S3>/K_ed'
    */
   13.340129119945633,
 
   /* Variable: K_ei
-   * Referenced by: '<S4>/K_ei'
+   * Referenced by: '<S3>/K_ei'
    */
   0.33350322799864085,
 
   /* Variable: K_ep
-   * Referenced by: '<S4>/K_ep'
+   * Referenced by: '<S3>/K_ep'
    */
   3.3350322799864083,
 
   /* Variable: K_pd
-   * Referenced by: '<S8>/K_pd'
+   * Referenced by: '<S7>/K_pd'
    */
   6.2801223241590209,
 
   /* Variable: K_pp
-   * Referenced by: '<S8>/K_pp'
+   * Referenced by: '<S7>/K_pp'
    */
   5.6521100917431193,
 
@@ -67,17 +67,17 @@ P_helicopter_T helicopter_P = {
   7.55,
 
   /* Variable: elevation_gain
-   * Referenced by: '<S5>/Elevation_gain'
+   * Referenced by: '<S4>/Elevation_gain'
    */
   1.0,
 
   /* Variable: travel_gain
-   * Referenced by: '<S5>/Travel_gain'
+   * Referenced by: '<S4>/Travel_gain'
    */
   1.0,
 
   /* Mask Parameter: HILWriteAnalog_channels
-   * Referenced by: '<S5>/HIL Write Analog'
+   * Referenced by: '<S4>/HIL Write Analog'
    */
   { 0U, 1U },
 
@@ -167,12 +167,12 @@ P_helicopter_T helicopter_P = {
   0.0,
 
   /* Expression: -2 * pi /4096
-   * Referenced by: '<S5>/Elevation: Count to rad'
+   * Referenced by: '<S4>/Elevation: Count to rad'
    */
   -0.0015339807878856412,
 
   /* Expression: 180/pi
-   * Referenced by: '<S10>/Gain'
+   * Referenced by: '<S9>/Gain'
    */
   57.295779513082323,
 
@@ -182,22 +182,22 @@ P_helicopter_T helicopter_P = {
   -30.0,
 
   /* Computed Parameter: ElevationTransferFcn_A
-   * Referenced by: '<S5>/Elevation: Transfer Fcn'
+   * Referenced by: '<S4>/Elevation: Transfer Fcn'
    */
   -10.0,
 
   /* Computed Parameter: ElevationTransferFcn_C
-   * Referenced by: '<S5>/Elevation: Transfer Fcn'
+   * Referenced by: '<S4>/Elevation: Transfer Fcn'
    */
   -100.0,
 
   /* Computed Parameter: ElevationTransferFcn_D
-   * Referenced by: '<S5>/Elevation: Transfer Fcn'
+   * Referenced by: '<S4>/Elevation: Transfer Fcn'
    */
   10.0,
 
   /* Expression: 180/pi
-   * Referenced by: '<S11>/Gain'
+   * Referenced by: '<S10>/Gain'
    */
   57.295779513082323,
 
@@ -207,32 +207,32 @@ P_helicopter_T helicopter_P = {
   180.0,
 
   /* Expression: 2*pi/8192
-   * Referenced by: '<S5>/Travel: Count to rad'
+   * Referenced by: '<S4>/Travel: Count to rad'
    */
   0.00076699039394282058,
 
   /* Expression: 180/pi
-   * Referenced by: '<S15>/Gain'
+   * Referenced by: '<S14>/Gain'
    */
   57.295779513082323,
 
   /* Computed Parameter: TravelTransferFcn_A
-   * Referenced by: '<S5>/Travel: Transfer Fcn'
+   * Referenced by: '<S4>/Travel: Transfer Fcn'
    */
   -10.0,
 
   /* Computed Parameter: TravelTransferFcn_C
-   * Referenced by: '<S5>/Travel: Transfer Fcn'
+   * Referenced by: '<S4>/Travel: Transfer Fcn'
    */
   -100.0,
 
   /* Computed Parameter: TravelTransferFcn_D
-   * Referenced by: '<S5>/Travel: Transfer Fcn'
+   * Referenced by: '<S4>/Travel: Transfer Fcn'
    */
   10.0,
 
   /* Expression: 180/pi
-   * Referenced by: '<S16>/Gain'
+   * Referenced by: '<S15>/Gain'
    */
   57.295779513082323,
 
@@ -242,32 +242,32 @@ P_helicopter_T helicopter_P = {
   -7.5,
 
   /* Expression: 2*pi /4096
-   * Referenced by: '<S5>/Pitch: Count to rad'
+   * Referenced by: '<S4>/Pitch: Count to rad'
    */
   0.0015339807878856412,
 
   /* Expression: 180/pi
-   * Referenced by: '<S12>/Gain'
+   * Referenced by: '<S11>/Gain'
    */
   57.295779513082323,
 
   /* Computed Parameter: PitchTransferFcn_A
-   * Referenced by: '<S5>/Pitch: Transfer Fcn'
+   * Referenced by: '<S4>/Pitch: Transfer Fcn'
    */
   -30.0,
 
   /* Computed Parameter: PitchTransferFcn_C
-   * Referenced by: '<S5>/Pitch: Transfer Fcn'
+   * Referenced by: '<S4>/Pitch: Transfer Fcn'
    */
   -900.0,
 
   /* Computed Parameter: PitchTransferFcn_D
-   * Referenced by: '<S5>/Pitch: Transfer Fcn'
+   * Referenced by: '<S4>/Pitch: Transfer Fcn'
    */
   30.0,
 
   /* Expression: 180/pi
-   * Referenced by: '<S13>/Gain'
+   * Referenced by: '<S12>/Gain'
    */
   57.295779513082323,
 
@@ -277,24 +277,19 @@ P_helicopter_T helicopter_P = {
   0.017453292519943295,
 
   /* Expression: 0
-   * Referenced by: '<S4>/Integrator'
+   * Referenced by: '<S3>/Integrator'
    */
   0.0,
 
   /* Expression: inf
-   * Referenced by: '<S4>/Integrator'
+   * Referenced by: '<S3>/Integrator'
    */
   0.0,
 
   /* Expression: -inf
-   * Referenced by: '<S4>/Integrator'
+   * Referenced by: '<S3>/Integrator'
    */
   0.0,
-
-  /* Expression: pi/180
-   * Referenced by: '<S3>/Gain1'
-   */
-  0.017453292519943295,
 
   /* Expression: 0.5
    * Referenced by: '<S1>/Back gain'
@@ -307,27 +302,27 @@ P_helicopter_T helicopter_P = {
   0.5,
 
   /* Expression: 180/pi
-   * Referenced by: '<S14>/Gain'
+   * Referenced by: '<S13>/Gain'
    */
   57.295779513082323,
 
   /* Expression: 5
-   * Referenced by: '<S5>/Back motor: Saturation'
+   * Referenced by: '<S4>/Back motor: Saturation'
    */
   5.0,
 
   /* Expression: -5
-   * Referenced by: '<S5>/Back motor: Saturation'
+   * Referenced by: '<S4>/Back motor: Saturation'
    */
   -5.0,
 
   /* Expression: 5
-   * Referenced by: '<S5>/Front motor: Saturation'
+   * Referenced by: '<S4>/Front motor: Saturation'
    */
   5.0,
 
   /* Expression: -5
-   * Referenced by: '<S5>/Front motor: Saturation'
+   * Referenced by: '<S4>/Front motor: Saturation'
    */
   -5.0,
 
@@ -367,7 +362,7 @@ P_helicopter_T helicopter_P = {
   1,
 
   /* Computed Parameter: HILReadEncoderTimebase_Clock
-   * Referenced by: '<S5>/HIL Read Encoder Timebase'
+   * Referenced by: '<S4>/HIL Read Encoder Timebase'
    */
   0,
 
@@ -397,12 +392,12 @@ P_helicopter_T helicopter_P = {
   { 0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U },
 
   /* Computed Parameter: HILReadEncoderTimebase_Channels
-   * Referenced by: '<S5>/HIL Read Encoder Timebase'
+   * Referenced by: '<S4>/HIL Read Encoder Timebase'
    */
   { 0U, 1U, 2U },
 
   /* Computed Parameter: HILReadEncoderTimebase_SamplesI
-   * Referenced by: '<S5>/HIL Read Encoder Timebase'
+   * Referenced by: '<S4>/HIL Read Encoder Timebase'
    */
   500U,
 
@@ -582,17 +577,17 @@ P_helicopter_T helicopter_P = {
   1,
 
   /* Computed Parameter: HILReadEncoderTimebase_Active
-   * Referenced by: '<S5>/HIL Read Encoder Timebase'
+   * Referenced by: '<S4>/HIL Read Encoder Timebase'
    */
   1,
 
   /* Computed Parameter: HILWriteAnalog_Active
-   * Referenced by: '<S5>/HIL Write Analog'
+   * Referenced by: '<S4>/HIL Write Analog'
    */
   0,
 
   /* Computed Parameter: HILReadEncoderTimebase_Overflow
-   * Referenced by: '<S5>/HIL Read Encoder Timebase'
+   * Referenced by: '<S4>/HIL Read Encoder Timebase'
    */
   1U
 };

@@ -117,13 +117,13 @@ B = [ 0                0;
 mx = size(A,2); % Number of states (number of columns in A)
 mu = size(B,2); % Number of inputs(number of columns in B)
 
-q1 = 0.1; q2 = q1;
+q1 = 1; q2 = q1;
 alpha = 0.2;    beta = 20;
 lambda_0 = pi;  lambda_f = 0;   lambda_t = 2*pi/3;
 time_padding = 5; sim_t = 10;
 
 % Time horizon and initialization
-N  = 55;                                  % Time horizon for states
+N  = 40;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
 z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
@@ -239,7 +239,8 @@ plot(t,x4,'m',t,x4','mo'),grid
 ylabel('pdot')
 
 subplot(716)
-plot(t,x5,'m',t,x5','mo'),grid
+plot(t,x5,'m',t,x5','mo'),grid; hold on;
+c = alpha*exp(-beta*(x1-lambda_t).^2); plot(t,c,"b");hold off;
 ylabel('e')
 
 subplot(717)
