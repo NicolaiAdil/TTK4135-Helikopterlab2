@@ -140,7 +140,7 @@ t1=toc;
 
 % Finding optimal K
 
-Q = diag([5,1,1,1,5,1]);
+Q = diag([1,1,1,1,1,1]);
 R = diag([1, 1]);
 
 [K,P,e] = dlqr(A1,B1,Q,R,[]);
@@ -186,7 +186,6 @@ t_x = 0:delta_t:delta_t*(length(x_star)-1);
 
 
 %Export optimal u and x to simulink
-time_padding = 5;
 u_simulink = timeseries(u_star,t_u);
 x_simulink = timeseries(x_star,t_x);
 

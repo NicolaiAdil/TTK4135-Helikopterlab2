@@ -37,7 +37,7 @@ time_padding = 5; sim_t = 10;
 N  = 40;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
-z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
+z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
 
 % Bounds

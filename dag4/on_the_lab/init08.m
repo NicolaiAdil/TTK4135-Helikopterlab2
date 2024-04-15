@@ -126,7 +126,7 @@ time_padding = 5; sim_t = 10;
 N  = 55;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
-z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
+z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
 
 % Bounds
@@ -150,8 +150,7 @@ x(1:6) = x0;
 Q1 = 2*diag([1 0 0 0 0 0]);
 P1 = 2*diag([q1 q2]);
 
-Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
-c = zeros(size(Q,1),1);                                % Generate c, this is the linear constant term in the QP
+Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q                               % Generate c, this is the linear constant term in the QP
 
 %% Generate system matrixes for linear model
 Aeq = gen_aeq(A,B,N,mx,mu);             % Generate A, hint: gen_aeq
@@ -179,12 +178,6 @@ Q = diag([1 1 1 1 1 1]);
 R = diag([0.1 0.1]);
 
 [K,P,e] = dlqr(A,B,Q,R,[]);
-
-%Matrix to go from 6 dimentional vector to 4 dimentioanl
-%Transform = [1 0 0 0 0 0;
-%            0 1 0 0 0 0;
-%             0 0 1 0 0 0;
-%             0 0 0 1 0 0];
 
 %% Extract control inputs and states
 % Extract control inputs and states
@@ -215,22 +208,18 @@ t_x = 0:delta_t:delta_t*(length(x1)-1);
 
 u1_simulink = timeseries(u1,t_u);
 u2_simulink = timeseries(u2,t_u);
-u = [u1 u2];
+u = [u1'; u2'];
 u_simulink = timeseries(u, t_u);
 
-x1_simulink = timeseries(x1,t_x);
-x2_simulink = timeseries(x2,t_x);
-x3_simulink = timeseries(x3,t_x);
-x4_simulink = timeseries(x4,t_x);
-x5_simulink = timeseries(x5,t_x);
-x6_simulink = timeseries(x6,t_x);
+x = [x1'; x2'; x3'; x4'; x5'; x6'];
+x_simulink = timeseries(x,t_x);
 
 %% Plot Optimal Trajectory
 t = 0:delta_t:delta_t*(length(u)-1);
 
 figure(2)
 subplot(711)
-stairs(t,u),grid
+stairs(t,u'),grid
 ylabel('u')
 
 subplot(712)
