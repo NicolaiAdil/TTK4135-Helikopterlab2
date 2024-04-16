@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.0
+ * Model version              : 11.2
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Mon Apr 15 12:19:58 2024
+ * C source code generated on : Tue Apr 16 13:44:15 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -864,26 +864,27 @@
 /* Block signals (default storage) */
 typedef struct {
   real_T ElevationCounttorad;          /* '<S4>/Elevation: Count to rad' */
-  real_T Gain;                         /* '<S9>/Gain' */
+  real_T Gain;                         /* '<S10>/Gain' */
   real_T Sum;                          /* '<Root>/Sum' */
-  real_T Gain_d;                       /* '<S10>/Gain' */
+  real_T Gain_d;                       /* '<S11>/Gain' */
   real_T pitch_ref[2];                 /* '<Root>/pitch_ref' */
   real_T TravelCounttorad;             /* '<S4>/Travel: Count to rad' */
-  real_T Gain_p;                       /* '<S14>/Gain' */
+  real_T Gain_p;                       /* '<S15>/Gain' */
   real_T Sum3;                         /* '<Root>/Sum3' */
-  real_T Gain_dc;                      /* '<S15>/Gain' */
+  real_T Gain_dc;                      /* '<S16>/Gain' */
   real_T PitchCounttorad;              /* '<S4>/Pitch: Count to rad' */
-  real_T Gain_i;                       /* '<S11>/Gain' */
+  real_T Gain_i;                       /* '<S12>/Gain' */
   real_T Sum4;                         /* '<Root>/Sum4' */
-  real_T Gain_b;                       /* '<S12>/Gain' */
+  real_T Gain_b;                       /* '<S13>/Gain' */
   real_T x[6];                         /* '<Root>/x +' */
   real_T Sum1;                         /* '<Root>/Sum1' */
   real_T Sum2;                         /* '<Root>/Sum2' */
   real_T Clock;                        /* '<S6>/Clock' */
-  real_T Gain_l;                       /* '<S13>/Gain' */
+  real_T Gain_c;                       /* '<S8>/Gain' */
+  real_T Gain_l;                       /* '<S14>/Gain' */
   real_T BackmotorSaturation;          /* '<S4>/Back motor: Saturation' */
   real_T FrontmotorSaturation;         /* '<S4>/Front motor: Saturation' */
-  real_T In1;                          /* '<S8>/In1' */
+  real_T In1;                          /* '<S9>/In1' */
 } B_helicopter_T;
 
 /* Block states (default storage) for system '<Root>' */
@@ -988,8 +989,26 @@ typedef struct {
   } Scope_PWORK;                       /* '<Root>/Scope' */
 
   struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } FromWorkspace_PWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    void *LoggedData;
+  } Scope1_PWORK;                      /* '<Root>/Scope1' */
+
+  struct {
+    void *LoggedData;
+  } Scope2_PWORK;                      /* '<Root>/Scope2' */
+
+  struct {
     void *LoggedData;
   } ToWorkspace_PWORK_l;               /* '<Root>/To Workspace' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace1_PWORK_m;              /* '<Root>/To Workspace1' */
 
   struct {
     void *LoggedData;
@@ -1059,6 +1078,10 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } x_IWORK;                           /* '<Root>/x +' */
+
+  struct {
+    int_T PrevIndex;
+  } FromWorkspace_IWORK;               /* '<Root>/From Workspace' */
 
   int8_T If_ActiveSubsystem;           /* '<S3>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S3>/If Action Subsystem' */
@@ -1202,7 +1225,7 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S4>/Elevation: Count to rad'
                                         */
   real_T Gain_Gain;                    /* Expression: 180/pi
-                                        * Referenced by: '<S9>/Gain'
+                                        * Referenced by: '<S10>/Gain'
                                         */
   real_T elavation_offsetdeg_Value;    /* Expression: -30
                                         * Referenced by: '<Root>/elavation_offset [deg]'
@@ -1217,7 +1240,7 @@ struct P_helicopter_T_ {
                                     * Referenced by: '<S4>/Elevation: Transfer Fcn'
                                     */
   real_T Gain_Gain_n;                  /* Expression: 180/pi
-                                        * Referenced by: '<S10>/Gain'
+                                        * Referenced by: '<S11>/Gain'
                                         */
   real_T travel_offset_Value;          /* Expression: 180
                                         * Referenced by: '<Root>/travel_offset'
@@ -1226,7 +1249,7 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S4>/Travel: Count to rad'
                                         */
   real_T Gain_Gain_a;                  /* Expression: 180/pi
-                                        * Referenced by: '<S14>/Gain'
+                                        * Referenced by: '<S15>/Gain'
                                         */
   real_T TravelTransferFcn_A;         /* Computed Parameter: TravelTransferFcn_A
                                        * Referenced by: '<S4>/Travel: Transfer Fcn'
@@ -1238,7 +1261,7 @@ struct P_helicopter_T_ {
                                        * Referenced by: '<S4>/Travel: Transfer Fcn'
                                        */
   real_T Gain_Gain_l;                  /* Expression: 180/pi
-                                        * Referenced by: '<S15>/Gain'
+                                        * Referenced by: '<S16>/Gain'
                                         */
   real_T pitch_offset_Value;           /* Expression: -7.5
                                         * Referenced by: '<Root>/pitch_offset'
@@ -1247,7 +1270,7 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S4>/Pitch: Count to rad'
                                         */
   real_T Gain_Gain_ar;                 /* Expression: 180/pi
-                                        * Referenced by: '<S11>/Gain'
+                                        * Referenced by: '<S12>/Gain'
                                         */
   real_T PitchTransferFcn_A;           /* Computed Parameter: PitchTransferFcn_A
                                         * Referenced by: '<S4>/Pitch: Transfer Fcn'
@@ -1259,7 +1282,7 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S4>/Pitch: Transfer Fcn'
                                         */
   real_T Gain_Gain_ae;                 /* Expression: 180/pi
-                                        * Referenced by: '<S12>/Gain'
+                                        * Referenced by: '<S13>/Gain'
                                         */
   real_T Gain1_Gain;                   /* Expression: pi/180
                                         * Referenced by: '<S2>/Gain1'
@@ -1273,6 +1296,9 @@ struct P_helicopter_T_ {
   real_T Integrator_LowerSat;          /* Expression: -inf
                                         * Referenced by: '<S3>/Integrator'
                                         */
+  real_T Gain_Gain_e;                  /* Expression: 180/pi
+                                        * Referenced by: '<S8>/Gain'
+                                        */
   real_T Backgain_Gain;                /* Expression: 0.5
                                         * Referenced by: '<S1>/Back gain'
                                         */
@@ -1280,7 +1306,7 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S1>/Front gain'
                                         */
   real_T Gain_Gain_a1;                 /* Expression: 180/pi
-                                        * Referenced by: '<S13>/Gain'
+                                        * Referenced by: '<S14>/Gain'
                                         */
   real_T BackmotorSaturation_UpperSat; /* Expression: 5
                                         * Referenced by: '<S4>/Back motor: Saturation'
@@ -1631,13 +1657,14 @@ extern RT_MODEL_helicopter_T *const helicopter_M;
  * '<S5>'   : 'helicopter/LQ controller'
  * '<S6>'   : 'helicopter/Out_data'
  * '<S7>'   : 'helicopter/Pitch controller'
- * '<S8>'   : 'helicopter/Elevation controller/If Action Subsystem'
- * '<S9>'   : 'helicopter/Helicopter_interface/Elevation rad to deg'
- * '<S10>'  : 'helicopter/Helicopter_interface/Elevation rate rad to deg'
- * '<S11>'  : 'helicopter/Helicopter_interface/Pitch rad to deg'
- * '<S12>'  : 'helicopter/Helicopter_interface/Pitch rate rad to deg'
- * '<S13>'  : 'helicopter/Helicopter_interface/Pitch rate rad to deg1'
- * '<S14>'  : 'helicopter/Helicopter_interface/Travel rad to deg'
- * '<S15>'  : 'helicopter/Helicopter_interface/Travel rate  rad to deg'
+ * '<S8>'   : 'helicopter/Radians to Degrees'
+ * '<S9>'   : 'helicopter/Elevation controller/If Action Subsystem'
+ * '<S10>'  : 'helicopter/Helicopter_interface/Elevation rad to deg'
+ * '<S11>'  : 'helicopter/Helicopter_interface/Elevation rate rad to deg'
+ * '<S12>'  : 'helicopter/Helicopter_interface/Pitch rad to deg'
+ * '<S13>'  : 'helicopter/Helicopter_interface/Pitch rate rad to deg'
+ * '<S14>'  : 'helicopter/Helicopter_interface/Pitch rate rad to deg1'
+ * '<S15>'  : 'helicopter/Helicopter_interface/Travel rad to deg'
+ * '<S16>'  : 'helicopter/Helicopter_interface/Travel rate  rad to deg'
  */
 #endif                                 /* RTW_HEADER_helicopter_h_ */

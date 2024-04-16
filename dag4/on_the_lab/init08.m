@@ -117,13 +117,13 @@ B = [ 0                0;
 mx = size(A,2); % Number of states (number of columns in A)
 mu = size(B,2); % Number of inputs(number of columns in B)
 
-q1 = 1; q2 = q1;
+q1 = .1; q2 = q1;
 alpha = 0.2;    beta = 20;
 lambda_0 = pi;  lambda_f = 0;   lambda_t = 2*pi/3;
 time_padding = 5; sim_t = 10;
 
 % Time horizon and initialization
-N  = 40;                                  % Time horizon for states
+N  = 60;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
 z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
@@ -174,7 +174,7 @@ end
 
 %%Caclulate LQR gain
 
-Q = diag([1 1 1 1 1 1]);
+Q = diag([3 .3 2 .5 3 .5]);
 R = diag([0.1 0.1]);
 
 [K,P,e] = dlqr(A,B,Q,R,[]);
@@ -202,9 +202,11 @@ x3  = [zero_padding; x3; zero_padding];
 x4  = [zero_padding; x4; zero_padding];
 x5  = [zero_padding; x5; zero_padding];
 x6  = [zero_padding; x6; zero_padding];
+c = alpha*exp(-beta*(x1-lambda_t).^2);
 
 t_u = 0:delta_t:delta_t*(length(u1)-1);
 t_x = 0:delta_t:delta_t*(length(x1)-1);
+t_c = 0:delta_t:delta_t*(length(c)-1);
 
 u1_simulink = timeseries(u1,t_u);
 u2_simulink = timeseries(u2,t_u);
@@ -213,6 +215,8 @@ u_simulink = timeseries(u, t_u);
 
 x = [x1'; x2'; x3'; x4'; x5'; x6'];
 x_simulink = timeseries(x,t_x);
+
+c_simulink = timeseries(c, t_c);
 
 %% Plot Optimal Trajectory
 t = 0:delta_t:delta_t*(length(u)-1);
@@ -250,7 +254,7 @@ xlabel('tid (s)'),ylabel('edot')
 
 %% Simulation and data saving
 lab_day = 4; %For example 1,2,3,4
-test_condition = 'N_equals_55_unit_tune'; %Descpritive of what we're doing
+test_condition = 'N_equals_60_q_equals_0_point_1_good_tune'; %Descpritive of what we're doing
 
 % --- Don't change this ---
 model_name = 'helicopter'; 
