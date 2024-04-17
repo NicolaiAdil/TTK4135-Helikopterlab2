@@ -1,5 +1,6 @@
 import scipy.io
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
 # See this link to make sense of the data: 
@@ -18,26 +19,38 @@ def choose_file_data(LabDay: int) -> dict:
     choice = int(input("Choose a file to plot: ")) - 1
 
     file_path = os.path.join('data', files[choice])
-    return load_mat_file(file_path)
+    raw_data_dict = load_mat_file(file_path)
+    raw_data = raw_data_dict['all_data']
+
+    data = dict()
+    data['time'] = raw_data[0]
+    data['travel'] = raw_data[1]
+    data['travel_rate'] = raw_data[2]
+    data['pitch'] = raw_data[3]
+    data['pitch_rate'] = raw_data[4]
+    data['elevation'] = raw_data[5]
+    data['elevation_rate'] = raw_data[6]
+    data['pitch_reference'] = raw_data[7]
+    data['elevation_reference'] = raw_data[8]
+    data['v_d'] = raw_data[9]
+    data['v_s'] = raw_data[10]
+    data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
+    if LabDay == 4:
+        data['constraint'] = raw_data[15]
+
+    return data
 
 
 def plot_lab_day2():
     data = choose_file_data(2)
     print("Keys:", data.keys())
-
-    print(data['x_star'].shape) 
-    print(data['travel'].shape)
-    print(data['travel_rate'].shape)
-    print(data['pitch'].shape)
-    print(data['pitch_rate'].shape)
-
+    print(data['x_star'])
    
     print("1. Plot different q values")
     print("2. Plot different start pitch values")
     choice = int(input("Enter your choice: ")) 
 
     if choice == 1:
-
         optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
         travel, travel_rate, pitch, pitch_rate = data['travel'], data['travel_rate'], data['pitch'], data['pitch_rate']
         time = data['time'].squeeze()
