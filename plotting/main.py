@@ -103,23 +103,11 @@ def plot_lab_day2():
 def plot_lab_day3():
     data = choose_file_data(3)
     print("Keys:", data.keys())
-    print(data['x_star'].shape) 
-    print(data['travel'].shape)
-    print(data['travel_rate'].shape)
-    print(data['pitch'].shape)
-    print(data['pitch_rate'].shape)
-    print(data['time'].squeeze())
-        
+
 
 def plot_lab_day4():
     data = choose_file_data(4)
     print("Keys:", data.keys())
-    print(data['x_star'].shape) 
-    print(data['travel'].shape)
-    print(data['travel_rate'].shape)
-    print(data['pitch'].shape)
-    print(data['pitch_rate'].shape)
-    print(data['time'].squeeze())
 
 
 def main():
