@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.12
+ * Model version              : 11.14
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 28 11:43:22 2024
+ * C source code generated on : Wed Apr 17 14:07:30 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -21,9 +21,12 @@
 #ifndef RTW_HEADER_helicopter_h_
 #define RTW_HEADER_helicopter_h_
 #include <math.h>
+#include <stddef.h>
 #include <string.h>
 #ifndef helicopter_COMMON_INCLUDES_
 #define helicopter_COMMON_INCLUDES_
+#include <stdio.h>
+#include <string.h>
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
 #include "simstruc.h"
@@ -877,15 +880,15 @@ typedef struct {
   real_T Sum4;                         /* '<Root>/Sum4' */
   real_T Gain_b;                       /* '<S13>/Gain' */
   real_T pitch_ref;                    /* '<Root>/pitch_ref' */
-  real_T x_1;                          /* '<S8>/x_1+' */
-  real_T x_2;                          /* '<S8>/x_2+' */
-  real_T x_3;                          /* '<S8>/x_3+' */
-  real_T x_4;                          /* '<S8>/x_4+' */
+  real_T x_1;                          /* '<S6>/x_1+' */
+  real_T x_2;                          /* '<S6>/x_2+' */
+  real_T x_3;                          /* '<S6>/x_3+' */
+  real_T x_4;                          /* '<S6>/x_4+' */
   real_T Sum1;                         /* '<Root>/Sum1' */
   real_T Gain1;                        /* '<S3>/Gain1' */
   real_T Sum2;                         /* '<Root>/Sum2' */
-  real_T Clock;                        /* '<S6>/Clock' */
-  real_T TmpSignalConversionAtToWorkspac[4];/* '<Root>/Subsystem' */
+  real_T Clock;                        /* '<S7>/Clock' */
+  real_T TmpSignalConversionAtToWorkspac[4];/* '<Root>/LQ controller' */
   real_T Gain_l;                       /* '<S14>/Gain' */
   real_T BackmotorSaturation;          /* '<S5>/Back motor: Saturation' */
   real_T FrontmotorSaturation;         /* '<S5>/Front motor: Saturation' */
@@ -923,27 +926,27 @@ typedef struct {
 
   struct {
     void *LoggedData;
-  } ToWorkspace_PWORK;                 /* '<S6>/To Workspace' */
+  } ToWorkspace_PWORK;                 /* '<S7>/To Workspace' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace1_PWORK;                /* '<S6>/To Workspace1' */
+  } ToWorkspace1_PWORK;                /* '<S7>/To Workspace1' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace2_PWORK;                /* '<S6>/To Workspace2' */
+  } ToWorkspace2_PWORK;                /* '<S7>/To Workspace2' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace3_PWORK;                /* '<S6>/To Workspace3' */
+  } ToWorkspace3_PWORK;                /* '<S7>/To Workspace3' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace4_PWORK;                /* '<S6>/To Workspace4' */
+  } ToWorkspace4_PWORK;                /* '<S7>/To Workspace4' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace5_PWORK;                /* '<S6>/To Workspace5' */
+  } ToWorkspace5_PWORK;                /* '<S7>/To Workspace5' */
 
   struct {
     void *TimePtr;
@@ -953,47 +956,47 @@ typedef struct {
 
   struct {
     void *LoggedData;
-  } ToWorkspace7_PWORK;                /* '<S6>/To Workspace7' */
+  } ToWorkspace7_PWORK;                /* '<S7>/To Workspace7' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace8_PWORK;                /* '<S6>/To Workspace8' */
+  } ToWorkspace8_PWORK;                /* '<S7>/To Workspace8' */
 
   struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
-  } x_1_PWORK;                         /* '<S8>/x_1+' */
+  } x_1_PWORK;                         /* '<S6>/x_1+' */
 
   struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
-  } x_2_PWORK;                         /* '<S8>/x_2+' */
+  } x_2_PWORK;                         /* '<S6>/x_2+' */
 
   struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
-  } x_3_PWORK;                         /* '<S8>/x_3+' */
+  } x_3_PWORK;                         /* '<S6>/x_3+' */
 
   struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
-  } x_4_PWORK;                         /* '<S8>/x_4+' */
+  } x_4_PWORK;                         /* '<S6>/x_4+' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace9_PWORK;                /* '<S6>/To Workspace9' */
+  } ToWorkspace9_PWORK;                /* '<S7>/To Workspace9' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace10_PWORK;               /* '<S6>/To Workspace10' */
+  } ToWorkspace10_PWORK;               /* '<S7>/To Workspace10' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace6_PWORK;                /* '<S6>/To Workspace6' */
+  } ToWorkspace6_PWORK;                /* '<S7>/To Workspace6' */
 
   struct {
     void *LoggedData;
@@ -1010,6 +1013,10 @@ typedef struct {
   struct {
     void *LoggedData;
   } Scope_PWORK;                       /* '<Root>/Scope' */
+
+  struct {
+    void *FilePtr;
+  } ToFile_PWORK;                      /* '<Root>/To File' */
 
   struct {
     void *LoggedData;
@@ -1082,19 +1089,24 @@ typedef struct {
 
   struct {
     int_T PrevIndex;
-  } x_1_IWORK;                         /* '<S8>/x_1+' */
+  } x_1_IWORK;                         /* '<S6>/x_1+' */
 
   struct {
     int_T PrevIndex;
-  } x_2_IWORK;                         /* '<S8>/x_2+' */
+  } x_2_IWORK;                         /* '<S6>/x_2+' */
 
   struct {
     int_T PrevIndex;
-  } x_3_IWORK;                         /* '<S8>/x_3+' */
+  } x_3_IWORK;                         /* '<S6>/x_3+' */
 
   struct {
     int_T PrevIndex;
-  } x_4_IWORK;                         /* '<S8>/x_4+' */
+  } x_4_IWORK;                         /* '<S6>/x_4+' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile_IWORK;                      /* '<Root>/To File' */
 
   int8_T If_ActiveSubsystem;           /* '<S4>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S4>/If Action Subsystem' */
@@ -1151,7 +1163,7 @@ typedef struct {
 /* Parameters (default storage) */
 struct P_helicopter_T_ {
   real_T K[4];                         /* Variable: K
-                                        * Referenced by: '<S8>/Gain'
+                                        * Referenced by: '<S6>/Gain'
                                         */
   real_T K_ed;                         /* Variable: K_ed
                                         * Referenced by: '<S4>/K_ed'
@@ -1163,13 +1175,13 @@ struct P_helicopter_T_ {
                                         * Referenced by: '<S4>/K_ep'
                                         */
   real_T K_pd;                         /* Variable: K_pd
-                                        * Referenced by: '<S7>/K_pd'
+                                        * Referenced by: '<S8>/K_pd'
                                         */
   real_T K_pp;                         /* Variable: K_pp
-                                        * Referenced by: '<S7>/K_pp'
+                                        * Referenced by: '<S8>/K_pp'
                                         */
   real_T Transform[24];                /* Variable: Transform
-                                        * Referenced by: '<S8>/Gain1'
+                                        * Referenced by: '<S6>/Gain1'
                                         */
   real_T Vd_ff;                        /* Variable: Vd_ff
                                         * Referenced by: '<Root>/Vd_bias'
@@ -1284,24 +1296,6 @@ struct P_helicopter_T_ {
                                         */
   real_T pitch_offset_Value;           /* Expression: -7.5
                                         * Referenced by: '<Root>/pitch_offset'
-                                        */
-  real_T Step1_Time;                   /* Expression: 16
-                                        * Referenced by: '<Root>/Step1'
-                                        */
-  real_T Step1_Y0;                     /* Expression: 0
-                                        * Referenced by: '<Root>/Step1'
-                                        */
-  real_T Step1_YFinal;                 /* Expression: -30
-                                        * Referenced by: '<Root>/Step1'
-                                        */
-  real_T Step_Time;                    /* Expression: 15
-                                        * Referenced by: '<Root>/Step'
-                                        */
-  real_T Step_Y0;                      /* Expression: 0
-                                        * Referenced by: '<Root>/Step'
-                                        */
-  real_T Step_YFinal;                  /* Expression: 30
-                                        * Referenced by: '<Root>/Step'
                                         */
   real_T PitchCounttorad_Gain;         /* Expression: 2*pi /4096
                                         * Referenced by: '<S5>/Pitch: Count to rad'
@@ -1692,9 +1686,9 @@ extern RT_MODEL_helicopter_T *const helicopter_M;
  * '<S3>'   : 'helicopter/Degrees to Radians2'
  * '<S4>'   : 'helicopter/Elevation controller'
  * '<S5>'   : 'helicopter/Helicopter_interface'
- * '<S6>'   : 'helicopter/Out_data'
- * '<S7>'   : 'helicopter/Pitch controller'
- * '<S8>'   : 'helicopter/Subsystem'
+ * '<S6>'   : 'helicopter/LQ controller'
+ * '<S7>'   : 'helicopter/Out_data'
+ * '<S8>'   : 'helicopter/Pitch controller'
  * '<S9>'   : 'helicopter/Elevation controller/If Action Subsystem'
  * '<S10>'  : 'helicopter/Helicopter_interface/Elevation rad to deg'
  * '<S11>'  : 'helicopter/Helicopter_interface/Elevation rate rad to deg'

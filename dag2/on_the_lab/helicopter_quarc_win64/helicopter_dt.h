@@ -9,7 +9,7 @@
  *
  * Model version              : 11.7
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Apr 17 09:45:10 2024
+ * C source code generated on : Wed Apr 17 13:38:07 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -71,13 +71,13 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&helicopter_DW.HILReadEncoderTimebase_Task), 15, 0, 1 },
 
-  { (char_T *)(&helicopter_DW.Elevation_PWORK.LoggedData), 11, 0, 35 },
+  { (char_T *)(&helicopter_DW.Elevation_PWORK.LoggedData), 11, 0, 36 },
 
   { (char_T *)(&helicopter_DW.HILInitialize_ClockModes[0]), 6, 0, 46 },
 
   { (char_T *)(&helicopter_DW.HILInitialize_POSortedChans[0]), 7, 0, 8 },
 
-  { (char_T *)(&helicopter_DW.pitch_ref_IWORK.PrevIndex), 10, 0, 2 },
+  { (char_T *)(&helicopter_DW.pitch_ref_IWORK.PrevIndex), 10, 0, 3 },
 
   { (char_T *)(&helicopter_DW.If_ActiveSubsystem), 2, 0, 2 }
 };

@@ -146,7 +146,7 @@ Q1(2,2) = 0;                            % Weight on state x2
 Q1(3,3) = 0;                            % Weight on state x3
 Q1(4,4) = 0;                            % Weight on state x4
 
-q = 12;
+q = .12;
 P1 = 2*q;                                % Weight on input
 Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
 c = zeros(size(Q,1),1);                                  % Generate c, this is the linear constant term in the QP
@@ -210,7 +210,7 @@ while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
 end
 
 file_name=sprintf('LabDay%d_%s.mat',lab_day, test_condition);
-save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
+%save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
 
 %% Plotting data
 % plot_file = file_name;

@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.12
+ * Model version              : 11.14
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 28 11:43:22 2024
+ * C source code generated on : Wed Apr 17 14:07:30 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -34,6 +34,33 @@ DW_helicopter_T helicopter_DW;
 /* Real-time model */
 static RT_MODEL_helicopter_T helicopter_M_;
 RT_MODEL_helicopter_T *const helicopter_M = &helicopter_M_;
+
+/*
+ * Writes out MAT-file header.  Returns success or failure.
+ * Returns:
+ *      0 - success
+ *      1 - failure
+ */
+int_T rt_WriteMat4FileHeader(FILE *fp, int32_T m, int32_T n, const char *name)
+{
+  typedef enum { ELITTLE_ENDIAN, EBIG_ENDIAN } ByteOrder;
+
+  int16_T one = 1;
+  ByteOrder byteOrder = (*((int8_T *)&one)==1) ? ELITTLE_ENDIAN : EBIG_ENDIAN;
+  int32_T type = (byteOrder == ELITTLE_ENDIAN) ? 0: 1000;
+  int32_T imagf = 0;
+  int32_T name_len = (int32_T)strlen(name) + 1;
+  if ((fwrite(&type, sizeof(int32_T), 1, fp) == 0) ||
+      (fwrite(&m, sizeof(int32_T), 1, fp) == 0) ||
+      (fwrite(&n, sizeof(int32_T), 1, fp) == 0) ||
+      (fwrite(&imagf, sizeof(int32_T), 1, fp) == 0) ||
+      (fwrite(&name_len, sizeof(int32_T), 1, fp) == 0) ||
+      (fwrite(name, sizeof(char), name_len, fp) == 0)) {
+    return(1);
+  } else {
+    return(0);
+  }
+}                                      /* end rt_WriteMat4FileHeader */
 
 /*
  * This function updates continuous states using the ODE1 fixed-step
@@ -66,9 +93,10 @@ void helicopter_output(void)
   real_T rtb_HILReadEncoderTimebase_o1;
   real_T rtb_HILReadEncoderTimebase_o2;
   real_T rtb_HILReadEncoderTimebase_o3;
+  real_T rtb_TmpSignalConversionAtToFile[14];
   real_T rtb_Gain1[6];
   real_T rtb_Sum1_d[4];
-  real_T rtb_Sum;
+  real_T rtb_Frontgain;
   real_T rtb_Sum1_j;
   real_T rtb_Sum1_j_0;
   real_T rtb_Sum1_j_1;
@@ -177,35 +205,11 @@ void helicopter_output(void)
     /* Gain: '<S12>/Gain' */
     helicopter_B.Gain_i = helicopter_P.Gain_Gain_ar *
       helicopter_B.PitchCounttorad;
-  }
 
-  /* Step: '<Root>/Step1' incorporates:
-   *  Step: '<Root>/Step'
-   */
-  rtb_Sum = helicopter_M->Timing.t[0];
-  if (rtb_Sum < helicopter_P.Step1_Time) {
-    rtb_Sum1_j = helicopter_P.Step1_Y0;
-  } else {
-    rtb_Sum1_j = helicopter_P.Step1_YFinal;
-  }
-
-  /* End of Step: '<Root>/Step1' */
-
-  /* Step: '<Root>/Step' */
-  if (rtb_Sum < helicopter_P.Step_Time) {
-    rtb_Sum = helicopter_P.Step_Y0;
-  } else {
-    rtb_Sum = helicopter_P.Step_YFinal;
-  }
-
-  /* Sum: '<Root>/Sum4' incorporates:
-   *  Constant: '<Root>/pitch_offset'
-   *  Sum: '<Root>/Sum5'
-   *  Sum: '<Root>/Sum6'
-   */
-  helicopter_B.Sum4 = ((rtb_Sum1_j + rtb_Sum) + helicopter_P.pitch_offset_Value)
-    + helicopter_B.Gain_i;
-  if (rtmIsMajorTimeStep(helicopter_M)) {
+    /* Sum: '<Root>/Sum4' incorporates:
+     *  Constant: '<Root>/pitch_offset'
+     */
+    helicopter_B.Sum4 = helicopter_P.pitch_offset_Value + helicopter_B.Gain_i;
   }
 
   /* Gain: '<S13>/Gain' incorporates:
@@ -270,7 +274,7 @@ void helicopter_output(void)
   if (rtmIsMajorTimeStep(helicopter_M)) {
   }
 
-  /* FromWorkspace: '<S8>/x_1+' */
+  /* FromWorkspace: '<S6>/x_1+' */
   {
     real_T *pDataValues = (real_T *) helicopter_DW.x_1_PWORK.DataPtr;
     real_T *pTimeValues = (real_T *) helicopter_DW.x_1_PWORK.TimePtr;
@@ -320,7 +324,7 @@ void helicopter_output(void)
     }
   }
 
-  /* FromWorkspace: '<S8>/x_2+' */
+  /* FromWorkspace: '<S6>/x_2+' */
   {
     real_T *pDataValues = (real_T *) helicopter_DW.x_2_PWORK.DataPtr;
     real_T *pTimeValues = (real_T *) helicopter_DW.x_2_PWORK.TimePtr;
@@ -370,7 +374,7 @@ void helicopter_output(void)
     }
   }
 
-  /* FromWorkspace: '<S8>/x_3+' */
+  /* FromWorkspace: '<S6>/x_3+' */
   {
     real_T *pDataValues = (real_T *) helicopter_DW.x_3_PWORK.DataPtr;
     real_T *pTimeValues = (real_T *) helicopter_DW.x_3_PWORK.TimePtr;
@@ -420,7 +424,7 @@ void helicopter_output(void)
     }
   }
 
-  /* FromWorkspace: '<S8>/x_4+' */
+  /* FromWorkspace: '<S6>/x_4+' */
   {
     real_T *pDataValues = (real_T *) helicopter_DW.x_4_PWORK.DataPtr;
     real_T *pTimeValues = (real_T *) helicopter_DW.x_4_PWORK.TimePtr;
@@ -478,7 +482,7 @@ void helicopter_output(void)
   rtb_Gain1[4] = helicopter_P.Gain1_Gain * helicopter_B.Sum;
   rtb_Gain1[5] = helicopter_P.Gain1_Gain * helicopter_B.Gain_d;
 
-  /* Gain: '<S8>/Gain1' */
+  /* Gain: '<S6>/Gain1' */
   for (i = 0; i < 4; i++) {
     rtb_Sum1_d[i] = 0.0;
     for (i_0 = 0; i_0 < 6; i_0++) {
@@ -486,29 +490,30 @@ void helicopter_output(void)
     }
   }
 
-  /* End of Gain: '<S8>/Gain1' */
+  /* End of Gain: '<S6>/Gain1' */
 
-  /* Sum: '<S8>/Sum1' */
-  rtb_Sum = rtb_Sum1_d[0];
+  /* Sum: '<S6>/Sum1' */
+  rtb_Frontgain = rtb_Sum1_d[0];
   rtb_Sum1_j = rtb_Sum1_d[1];
   rtb_Sum1_j_0 = rtb_Sum1_d[2];
   rtb_Sum1_j_1 = rtb_Sum1_d[3];
 
   /* Sum: '<Root>/Sum1' incorporates:
    *  Constant: '<Root>/Vd_bias'
-   *  Gain: '<S7>/K_pd'
-   *  Gain: '<S7>/K_pp'
-   *  Gain: '<S8>/Gain'
-   *  Sum: '<S7>/Sum2'
-   *  Sum: '<S7>/Sum3'
-   *  Sum: '<S8>/Sum'
-   *  Sum: '<S8>/Sum1'
+   *  Gain: '<S6>/Gain'
+   *  Gain: '<S8>/K_pd'
+   *  Gain: '<S8>/K_pp'
+   *  Sum: '<S6>/Sum'
+   *  Sum: '<S6>/Sum1'
+   *  Sum: '<S8>/Sum2'
+   *  Sum: '<S8>/Sum3'
    */
-  helicopter_B.Sum1 = (((helicopter_B.pitch_ref - ((((rtb_Sum - helicopter_B.x_1)
-    * helicopter_P.K[0] + (rtb_Sum1_j - helicopter_B.x_2) * helicopter_P.K[1]) +
-    (rtb_Sum1_j_0 - helicopter_B.x_3) * helicopter_P.K[2]) + (rtb_Sum1_j_1 -
-    helicopter_B.x_4) * helicopter_P.K[3])) - rtb_Gain1[2]) * helicopter_P.K_pp
-                       - helicopter_P.K_pd * rtb_Gain1[3]) + helicopter_P.Vd_ff;
+  helicopter_B.Sum1 = (((helicopter_B.pitch_ref - ((((rtb_Frontgain -
+    helicopter_B.x_1) * helicopter_P.K[0] + (rtb_Sum1_j - helicopter_B.x_2) *
+    helicopter_P.K[1]) + (rtb_Sum1_j_0 - helicopter_B.x_3) * helicopter_P.K[2])
+    + (rtb_Sum1_j_1 - helicopter_B.x_4) * helicopter_P.K[3])) - rtb_Gain1[2]) *
+                       helicopter_P.K_pp - helicopter_P.K_pd * rtb_Gain1[3]) +
+    helicopter_P.Vd_ff;
   if (rtmIsMajorTimeStep(helicopter_M)) {
   }
 
@@ -528,7 +533,7 @@ void helicopter_output(void)
   }
 
   /* Sum: '<S4>/Sum' */
-  rtb_Sum = helicopter_B.Gain1 - rtb_Gain1[4];
+  rtb_Frontgain = helicopter_B.Gain1 - rtb_Gain1[4];
 
   /* Sum: '<Root>/Sum2' incorporates:
    *  Constant: '<Root>/Vs_bias'
@@ -537,19 +542,19 @@ void helicopter_output(void)
    *  Integrator: '<S4>/Integrator'
    *  Sum: '<S4>/Sum1'
    */
-  helicopter_B.Sum2 = ((helicopter_P.K_ep * rtb_Sum +
+  helicopter_B.Sum2 = ((helicopter_P.K_ep * rtb_Frontgain +
                         helicopter_X.Integrator_CSTATE) - helicopter_P.K_ed *
                        rtb_Gain1[5]) + helicopter_P.Vs_ff;
   if (rtmIsMajorTimeStep(helicopter_M)) {
   }
 
-  /* Clock: '<S6>/Clock' incorporates:
+  /* Clock: '<S7>/Clock' incorporates:
    *  Clock: '<S4>/Clock'
    *  Derivative: '<S5>/Derivative'
    */
   rtb_Sum1_j = helicopter_M->Timing.t[0];
 
-  /* Clock: '<S6>/Clock' */
+  /* Clock: '<S7>/Clock' */
   helicopter_B.Clock = rtb_Sum1_j;
   if (rtmIsMajorTimeStep(helicopter_M)) {
     /* SignalConversion generated from: '<Root>/To Workspace' */
@@ -557,6 +562,63 @@ void helicopter_output(void)
     helicopter_B.TmpSignalConversionAtToWorkspac[1] = helicopter_B.x_2;
     helicopter_B.TmpSignalConversionAtToWorkspac[2] = helicopter_B.x_3;
     helicopter_B.TmpSignalConversionAtToWorkspac[3] = helicopter_B.x_4;
+
+    /* SignalConversion generated from: '<Root>/To File' */
+    rtb_TmpSignalConversionAtToFile[0] = helicopter_B.Sum3;
+    rtb_TmpSignalConversionAtToFile[1] = helicopter_B.Gain_dc;
+    rtb_TmpSignalConversionAtToFile[2] = helicopter_B.Sum4;
+    rtb_TmpSignalConversionAtToFile[3] = helicopter_B.Gain_b;
+    rtb_TmpSignalConversionAtToFile[4] = helicopter_B.Sum;
+    rtb_TmpSignalConversionAtToFile[5] = helicopter_B.Gain_d;
+    rtb_TmpSignalConversionAtToFile[6] = helicopter_B.pitch_ref;
+    rtb_TmpSignalConversionAtToFile[7] = helicopter_B.elevation_ref;
+    rtb_TmpSignalConversionAtToFile[8] = helicopter_B.Sum1;
+    rtb_TmpSignalConversionAtToFile[9] = helicopter_B.Sum2;
+    rtb_TmpSignalConversionAtToFile[10] = helicopter_B.x_1;
+    rtb_TmpSignalConversionAtToFile[11] = helicopter_B.x_2;
+    rtb_TmpSignalConversionAtToFile[12] = helicopter_B.x_3;
+    rtb_TmpSignalConversionAtToFile[13] = helicopter_B.x_4;
+
+    /* ToFile: '<Root>/To File' */
+    {
+      if (!(++helicopter_DW.ToFile_IWORK.Decimation % 1) &&
+          (helicopter_DW.ToFile_IWORK.Count * (14 + 1)) + 1 < 100000000 ) {
+        FILE *fp = (FILE *) helicopter_DW.ToFile_PWORK.FilePtr;
+        if (fp != (NULL)) {
+          real_T u[14 + 1];
+          helicopter_DW.ToFile_IWORK.Decimation = 0;
+          u[0] = helicopter_M->Timing.t[1];
+          u[1] = rtb_TmpSignalConversionAtToFile[0];
+          u[2] = rtb_TmpSignalConversionAtToFile[1];
+          u[3] = rtb_TmpSignalConversionAtToFile[2];
+          u[4] = rtb_TmpSignalConversionAtToFile[3];
+          u[5] = rtb_TmpSignalConversionAtToFile[4];
+          u[6] = rtb_TmpSignalConversionAtToFile[5];
+          u[7] = rtb_TmpSignalConversionAtToFile[6];
+          u[8] = rtb_TmpSignalConversionAtToFile[7];
+          u[9] = rtb_TmpSignalConversionAtToFile[8];
+          u[10] = rtb_TmpSignalConversionAtToFile[9];
+          u[11] = rtb_TmpSignalConversionAtToFile[10];
+          u[12] = rtb_TmpSignalConversionAtToFile[11];
+          u[13] = rtb_TmpSignalConversionAtToFile[12];
+          u[14] = rtb_TmpSignalConversionAtToFile[13];
+          if (fwrite(u, sizeof(real_T), 14 + 1, fp) != 14 + 1) {
+            rtmSetErrorStatus(helicopter_M,
+                              "Error writing to MAT-file all_data.mat");
+            return;
+          }
+
+          if (((++helicopter_DW.ToFile_IWORK.Count) * (14 + 1))+1 >= 100000000)
+          {
+            (void)fprintf(stdout,
+                          "*** The ToFile block will stop logging data before\n"
+                          "    the simulation has ended, because it has reached\n"
+                          "    the maximum number of elements (100000000)\n"
+                          "    allowed in MAT-file all_data.mat.\n");
+          }
+        }
+      }
+    }
   }
 
   /* If: '<S4>/If' incorporates:
@@ -574,7 +636,7 @@ void helicopter_output(void)
     /* Outputs for IfAction SubSystem: '<S4>/If Action Subsystem' incorporates:
      *  ActionPort: '<S9>/Action Port'
      */
-    helicopter_B.In1 = helicopter_P.K_ei * rtb_Sum;
+    helicopter_B.In1 = helicopter_P.K_ei * rtb_Frontgain;
     if (rtmIsMajorTimeStep(helicopter_M)) {
       srUpdateBC(helicopter_DW.IfActionSubsystem_SubsysRanBC);
     }
@@ -589,45 +651,47 @@ void helicopter_output(void)
   /* Derivative: '<S5>/Derivative' */
   if ((helicopter_DW.TimeStampA >= rtb_Sum1_j) && (helicopter_DW.TimeStampB >=
        rtb_Sum1_j)) {
-    rtb_Sum = 0.0;
+    rtb_Frontgain = 0.0;
   } else {
-    rtb_Sum = helicopter_DW.TimeStampA;
+    rtb_Frontgain = helicopter_DW.TimeStampA;
     lastU = &helicopter_DW.LastUAtTimeA;
     if (helicopter_DW.TimeStampA < helicopter_DW.TimeStampB) {
       if (helicopter_DW.TimeStampB < rtb_Sum1_j) {
-        rtb_Sum = helicopter_DW.TimeStampB;
+        rtb_Frontgain = helicopter_DW.TimeStampB;
         lastU = &helicopter_DW.LastUAtTimeB;
       }
     } else {
       if (helicopter_DW.TimeStampA >= rtb_Sum1_j) {
-        rtb_Sum = helicopter_DW.TimeStampB;
+        rtb_Frontgain = helicopter_DW.TimeStampB;
         lastU = &helicopter_DW.LastUAtTimeB;
       }
     }
 
-    rtb_Sum = (helicopter_B.PitchCounttorad - *lastU) / (rtb_Sum1_j - rtb_Sum);
+    rtb_Frontgain = (helicopter_B.PitchCounttorad - *lastU) / (rtb_Sum1_j -
+      rtb_Frontgain);
   }
 
   /* Gain: '<S14>/Gain' */
-  helicopter_B.Gain_l = helicopter_P.Gain_Gain_a1 * rtb_Sum;
+  helicopter_B.Gain_l = helicopter_P.Gain_Gain_a1 * rtb_Frontgain;
   if (rtmIsMajorTimeStep(helicopter_M)) {
   }
 
   /* Gain: '<S1>/Back gain' incorporates:
    *  Sum: '<S1>/Subtract'
    */
-  rtb_Sum = (helicopter_B.Sum2 - helicopter_B.Sum1) * helicopter_P.Backgain_Gain;
+  rtb_Frontgain = (helicopter_B.Sum2 - helicopter_B.Sum1) *
+    helicopter_P.Backgain_Gain;
 
   /* Saturate: '<S5>/Back motor: Saturation' */
-  if (rtb_Sum > helicopter_P.BackmotorSaturation_UpperSat) {
+  if (rtb_Frontgain > helicopter_P.BackmotorSaturation_UpperSat) {
     /* Saturate: '<S5>/Back motor: Saturation' */
     helicopter_B.BackmotorSaturation = helicopter_P.BackmotorSaturation_UpperSat;
-  } else if (rtb_Sum < helicopter_P.BackmotorSaturation_LowerSat) {
+  } else if (rtb_Frontgain < helicopter_P.BackmotorSaturation_LowerSat) {
     /* Saturate: '<S5>/Back motor: Saturation' */
     helicopter_B.BackmotorSaturation = helicopter_P.BackmotorSaturation_LowerSat;
   } else {
     /* Saturate: '<S5>/Back motor: Saturation' */
-    helicopter_B.BackmotorSaturation = rtb_Sum;
+    helicopter_B.BackmotorSaturation = rtb_Frontgain;
   }
 
   /* End of Saturate: '<S5>/Back motor: Saturation' */
@@ -637,21 +701,21 @@ void helicopter_output(void)
   /* Gain: '<S1>/Front gain' incorporates:
    *  Sum: '<S1>/Add'
    */
-  rtb_Sum = (helicopter_B.Sum1 + helicopter_B.Sum2) *
+  rtb_Frontgain = (helicopter_B.Sum1 + helicopter_B.Sum2) *
     helicopter_P.Frontgain_Gain;
 
   /* Saturate: '<S5>/Front motor: Saturation' */
-  if (rtb_Sum > helicopter_P.FrontmotorSaturation_UpperSat) {
+  if (rtb_Frontgain > helicopter_P.FrontmotorSaturation_UpperSat) {
     /* Saturate: '<S5>/Front motor: Saturation' */
     helicopter_B.FrontmotorSaturation =
       helicopter_P.FrontmotorSaturation_UpperSat;
-  } else if (rtb_Sum < helicopter_P.FrontmotorSaturation_LowerSat) {
+  } else if (rtb_Frontgain < helicopter_P.FrontmotorSaturation_LowerSat) {
     /* Saturate: '<S5>/Front motor: Saturation' */
     helicopter_B.FrontmotorSaturation =
       helicopter_P.FrontmotorSaturation_LowerSat;
   } else {
     /* Saturate: '<S5>/Front motor: Saturation' */
-    helicopter_B.FrontmotorSaturation = rtb_Sum;
+    helicopter_B.FrontmotorSaturation = rtb_Frontgain;
   }
 
   /* End of Saturate: '<S5>/Front motor: Saturation' */
@@ -1216,7 +1280,7 @@ void helicopter_initialize(void)
     helicopter_DW.pitch_ref_IWORK.PrevIndex = 0;
   }
 
-  /* Start for FromWorkspace: '<S8>/x_1+' */
+  /* Start for FromWorkspace: '<S6>/x_1+' */
   {
     static real_T pTimeValues0[] = { 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
       2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0,
@@ -1281,7 +1345,7 @@ void helicopter_initialize(void)
     helicopter_DW.x_1_IWORK.PrevIndex = 0;
   }
 
-  /* Start for FromWorkspace: '<S8>/x_2+' */
+  /* Start for FromWorkspace: '<S6>/x_2+' */
   {
     static real_T pTimeValues0[] = { 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
       2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0,
@@ -1339,7 +1403,7 @@ void helicopter_initialize(void)
     helicopter_DW.x_2_IWORK.PrevIndex = 0;
   }
 
-  /* Start for FromWorkspace: '<S8>/x_3+' */
+  /* Start for FromWorkspace: '<S6>/x_3+' */
   {
     static real_T pTimeValues0[] = { 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
       2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0,
@@ -1398,7 +1462,7 @@ void helicopter_initialize(void)
     helicopter_DW.x_3_IWORK.PrevIndex = 0;
   }
 
-  /* Start for FromWorkspace: '<S8>/x_4+' */
+  /* Start for FromWorkspace: '<S6>/x_4+' */
   {
     static real_T pTimeValues0[] = { 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
       2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0,
@@ -1455,6 +1519,26 @@ void helicopter_initialize(void)
     helicopter_DW.x_4_PWORK.TimePtr = (void *) pTimeValues0;
     helicopter_DW.x_4_PWORK.DataPtr = (void *) pDataValues0;
     helicopter_DW.x_4_IWORK.PrevIndex = 0;
+  }
+
+  /* Start for ToFile: '<Root>/To File' */
+  {
+    FILE *fp = (NULL);
+    char fileName[509] = "all_data.mat";
+    if ((fp = fopen(fileName, "wb")) == (NULL)) {
+      rtmSetErrorStatus(helicopter_M, "Error creating .mat file all_data.mat");
+      return;
+    }
+
+    if (rt_WriteMat4FileHeader(fp, 14 + 1, 0, "all_data")) {
+      rtmSetErrorStatus(helicopter_M,
+                        "Error writing mat file header to file all_data.mat");
+      return;
+    }
+
+    helicopter_DW.ToFile_IWORK.Count = 0;
+    helicopter_DW.ToFile_IWORK.Decimation = -1;
+    helicopter_DW.ToFile_PWORK.FilePtr = fp;
   }
 
   /* Start for If: '<S4>/If' */
@@ -1573,6 +1657,36 @@ void helicopter_terminate(void)
     hil_monitor_delete_all(helicopter_DW.HILInitialize_Card);
     hil_close(helicopter_DW.HILInitialize_Card);
     helicopter_DW.HILInitialize_Card = NULL;
+  }
+
+  /* Terminate for ToFile: '<Root>/To File' */
+  {
+    FILE *fp = (FILE *) helicopter_DW.ToFile_PWORK.FilePtr;
+    if (fp != (NULL)) {
+      char fileName[509] = "all_data.mat";
+      if (fclose(fp) == EOF) {
+        rtmSetErrorStatus(helicopter_M, "Error closing MAT-file all_data.mat");
+        return;
+      }
+
+      if ((fp = fopen(fileName, "r+b")) == (NULL)) {
+        rtmSetErrorStatus(helicopter_M, "Error reopening MAT-file all_data.mat");
+        return;
+      }
+
+      if (rt_WriteMat4FileHeader(fp, 14 + 1, helicopter_DW.ToFile_IWORK.Count,
+           "all_data")) {
+        rtmSetErrorStatus(helicopter_M,
+                          "Error writing header for all_data to MAT-file all_data.mat");
+      }
+
+      if (fclose(fp) == EOF) {
+        rtmSetErrorStatus(helicopter_M, "Error closing MAT-file all_data.mat");
+        return;
+      }
+
+      helicopter_DW.ToFile_PWORK.FilePtr = (NULL);
+    }
   }
 }
 
@@ -1714,10 +1828,10 @@ RT_MODEL_helicopter_T *helicopter(void)
   helicopter_M->Timing.stepSize1 = 0.002;
 
   /* External mode info */
-  helicopter_M->Sizes.checksums[0] = (458020824U);
-  helicopter_M->Sizes.checksums[1] = (2476244824U);
-  helicopter_M->Sizes.checksums[2] = (3480026742U);
-  helicopter_M->Sizes.checksums[3] = (974780563U);
+  helicopter_M->Sizes.checksums[0] = (3080726246U);
+  helicopter_M->Sizes.checksums[1] = (553526625U);
+  helicopter_M->Sizes.checksums[2] = (340964711U);
+  helicopter_M->Sizes.checksums[3] = (3033716769U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -1878,9 +1992,9 @@ RT_MODEL_helicopter_T *helicopter(void)
   helicopter_M->Sizes.numU = (0);      /* Number of model inputs */
   helicopter_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   helicopter_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  helicopter_M->Sizes.numBlocks = (99);/* Number of blocks */
+  helicopter_M->Sizes.numBlocks = (97);/* Number of blocks */
   helicopter_M->Sizes.numBlockIO = (27);/* Number of block outputs */
-  helicopter_M->Sizes.numBlockPrms = (181);/* Sum of parameter "widths" */
+  helicopter_M->Sizes.numBlockPrms = (175);/* Sum of parameter "widths" */
   return helicopter_M;
 }
 

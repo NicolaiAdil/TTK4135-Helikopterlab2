@@ -882,7 +882,7 @@
 	  section.data(22).logicalSrcIdx = 36;
 	  section.data(22).dtTransOffset = 21;
 	
-	  ;% helicopter_DW.Scope2_PWORK.LoggedData
+	  ;% helicopter_DW.ToFile_PWORK.FilePtr
 	  section.data(23).logicalSrcIdx = 37;
 	  section.data(23).dtTransOffset = 22;
 	
@@ -1000,8 +1000,8 @@
       dworkMap.sections(6) = section;
       clear section
       
-      section.nData     = 3;
-      section.data(3)  = dumData; %prealloc
+      section.nData     = 4;
+      section.data(4)  = dumData; %prealloc
       
 	  ;% helicopter_DW.pitch_ref_IWORK.PrevIndex
 	  section.data(1).logicalSrcIdx = 62;
@@ -1015,6 +1015,10 @@
 	  section.data(3).logicalSrcIdx = 64;
 	  section.data(3).dtTransOffset = 2;
 	
+	  ;% helicopter_DW.ToFile_IWORK.Count
+	  section.data(4).logicalSrcIdx = 65;
+	  section.data(4).dtTransOffset = 3;
+	
       nTotData = nTotData + section.nData;
       dworkMap.sections(7) = section;
       clear section
@@ -1023,11 +1027,11 @@
       section.data(2)  = dumData; %prealloc
       
 	  ;% helicopter_DW.If_ActiveSubsystem
-	  section.data(1).logicalSrcIdx = 65;
+	  section.data(1).logicalSrcIdx = 66;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_DW.IfActionSubsystem_SubsysRanBC
-	  section.data(2).logicalSrcIdx = 66;
+	  section.data(2).logicalSrcIdx = 67;
 	  section.data(2).dtTransOffset = 1;
 	
       nTotData = nTotData + section.nData;
@@ -1060,8 +1064,8 @@
   ;%
 
 
-  targMap.checksum0 = 685216633;
-  targMap.checksum1 = 4070445636;
-  targMap.checksum2 = 1644760504;
-  targMap.checksum3 = 2514370581;
+  targMap.checksum0 = 4077678906;
+  targMap.checksum1 = 1389874202;
+  targMap.checksum2 = 2076867599;
+  targMap.checksum3 = 1288434977;
 

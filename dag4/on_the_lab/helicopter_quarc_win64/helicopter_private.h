@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.2
+ * Model version              : 11.3
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Tue Apr 16 13:44:15 2024
+ * C source code generated on : Wed Apr 17 13:22:23 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -35,6 +35,10 @@
 
 /* A global buffer for storing error messages (defined in quanser_common library) */
 EXTERN char _rt_error_message[512];
+int_T rt_WriteMat4FileHeader(FILE *fp,
+  int32_T m,
+  int32_T n,
+  const char_T *name);
 
 /* private model entry point functions */
 extern void helicopter_derivatives(void);
