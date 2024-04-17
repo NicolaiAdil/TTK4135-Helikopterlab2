@@ -146,7 +146,7 @@ Q1(2,2) = 0;                            % Weight on state x2
 Q1(3,3) = 0;                            % Weight on state x3
 Q1(4,4) = 0;                            % Weight on state x4
 
-q = 12;
+q = 1.2;
 P1 = 2*q;                                % Weight on input
 Q = gen_q(Q1,P1,N,M);                                  % Generate Q, hint: gen_q
 c = zeros(size(Q,1),1);                                  % Generate c, this is the linear constant term in the QP
@@ -178,7 +178,6 @@ x4 = [x0(4);z(4:mx:N*mx)];              % State x4 from solution
 
 num_variables = 5/delta_t;
 zero_padding = zeros(num_variables,1);
-unit_padding  = ones(num_variables,1);
  
 u   = [zero_padding; u; zero_padding];
 
@@ -190,7 +189,7 @@ x4  = [zero_padding; x4; zero_padding];
 x = [x1';
      x2';
      x3';
-     x4'];
+     x4];
 
 t_u = 0:delta_t:delta_t*(length(u)-1);
 t_x = 0:delta_t:delta_t*(length(x1)-1);
@@ -201,7 +200,7 @@ x_star_simulink = timeseries(x,t_x);
 
 %% Simulation and data saving
 lab_day = 2; %For example 1,2,3,4
-test_condition = 'q_equals_12'; %Descpritive of what we're doing
+test_condition = 'q_equals_1_point_2'; %Descpritive of what we're doing
 model_name = 'helicopter'; %Don't change this
 
 set_param(model_name, 'SimulationCommand', 'start')
@@ -210,7 +209,7 @@ while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
 end
 
 file_name=sprintf('LabDay%d_%s.mat',lab_day, test_condition);
-save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
+save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s');
 
 %% Plotting data
 % plot_file = file_name;
