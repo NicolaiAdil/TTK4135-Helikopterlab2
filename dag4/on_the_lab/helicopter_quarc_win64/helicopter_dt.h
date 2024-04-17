@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.2
+ * Model version              : 11.3
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Tue Apr 16 13:44:15 2024
+ * C source code generated on : Wed Apr 17 13:22:23 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -77,7 +77,7 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&helicopter_DW.HILInitialize_POSortedChans[0]), 7, 0, 8 },
 
-  { (char_T *)(&helicopter_DW.pitch_ref_IWORK.PrevIndex), 10, 0, 3 },
+  { (char_T *)(&helicopter_DW.pitch_ref_IWORK.PrevIndex), 10, 0, 4 },
 
   { (char_T *)(&helicopter_DW.If_ActiveSubsystem), 2, 0, 2 }
 };

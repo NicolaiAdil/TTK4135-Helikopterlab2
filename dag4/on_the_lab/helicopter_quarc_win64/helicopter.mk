@@ -88,7 +88,7 @@ ALT_MATLAB_ROOT      = C:\PROGRA~1\MATLAB\R2020b
 MATLAB_BIN           = C:\Program Files\MATLAB\R2020b\bin
 ALT_MATLAB_BIN       = C:\PROGRA~1\MATLAB\R2020b\bin
 #-- Support for parallel builds
-START_DIR            = Z:\helikopterlab\TTK4135-Helikopterlab2\dag4\on_the_lab
+START_DIR            = C:\Users\naaatif\helikopterlab\TTK4135-Helikopterlab2\dag4\on_the_lab
 S_FUNCTIONS_LIB      = C:\PROGRA~1\Quanser\QUARC\lib\win64\hil.lib C:\PROGRA~1\Quanser\QUARC\lib\win64\QUDCFC~1.LIB C:\PROGRA~1\Quanser\QUARC\lib\win64\QUANSE~4.LIB
 NUMST                = 2
 TID01EQ              = 1

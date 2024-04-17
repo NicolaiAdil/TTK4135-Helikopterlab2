@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.12
+ * Model version              : 11.14
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Feb 28 11:43:22 2024
+ * C source code generated on : Wed Apr 17 14:07:30 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -24,10 +24,10 @@
 /* Block parameters (default storage) */
 P_helicopter_T helicopter_P = {
   /* Variable: K
-   * Referenced by: '<S8>/Gain'
+   * Referenced by: '<S6>/Gain'
    */
-  { -1.999075480212658, -5.4672960754355762, 2.4673730315477744,
-    0.76483750072675194 },
+  { -0.35525652753317305, -1.5464082326241171, 0.78875744119376534,
+    0.20486769004004871 },
 
   /* Variable: K_ed
    * Referenced by: '<S4>/K_ed'
@@ -45,17 +45,17 @@ P_helicopter_T helicopter_P = {
   3.3350322799864083,
 
   /* Variable: K_pd
-   * Referenced by: '<S7>/K_pd'
+   * Referenced by: '<S8>/K_pd'
    */
   6.2801223241590209,
 
   /* Variable: K_pp
-   * Referenced by: '<S7>/K_pp'
+   * Referenced by: '<S8>/K_pp'
    */
   5.6521100917431193,
 
   /* Variable: Transform
-   * Referenced by: '<S8>/Gain1'
+   * Referenced by: '<S6>/Gain1'
    */
   { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
     1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
@@ -249,36 +249,6 @@ P_helicopter_T helicopter_P = {
    * Referenced by: '<Root>/pitch_offset'
    */
   -7.5,
-
-  /* Expression: 16
-   * Referenced by: '<Root>/Step1'
-   */
-  16.0,
-
-  /* Expression: 0
-   * Referenced by: '<Root>/Step1'
-   */
-  0.0,
-
-  /* Expression: -30
-   * Referenced by: '<Root>/Step1'
-   */
-  -30.0,
-
-  /* Expression: 15
-   * Referenced by: '<Root>/Step'
-   */
-  15.0,
-
-  /* Expression: 0
-   * Referenced by: '<Root>/Step'
-   */
-  0.0,
-
-  /* Expression: 30
-   * Referenced by: '<Root>/Step'
-   */
-  30.0,
 
   /* Expression: 2*pi /4096
    * Referenced by: '<S5>/Pitch: Count to rad'

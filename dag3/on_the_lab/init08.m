@@ -170,8 +170,17 @@ end
 
 %%Caclulate LQR gain
 
-Q = diag([3,2,0.1,0.5]);
-R = 0.1;
+% Unit tune
+%Q = diag([1,1,1,1]);
+%R = 1;
+
+% Good tune
+%Q = diag([3,2,0.1,0.5]);
+%R = 0.1;
+
+% Prioritize
+Q = diag([15,1,1,1]);
+R = 100;
 
 [K,P,e] = dlqr(A1,B1,Q,R,[]);
 
@@ -221,7 +230,7 @@ while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
 end
 
 file_name=sprintf('LabDay%d_%s.mat',lab_day, test_condition);
-save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
+%save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
 
 
 

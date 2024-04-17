@@ -9,7 +9,7 @@
  *
  * Model version              : 11.7
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Wed Apr 17 09:45:10 2024
+ * C source code generated on : Wed Apr 17 13:38:07 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -21,9 +21,12 @@
 #ifndef RTW_HEADER_helicopter_h_
 #define RTW_HEADER_helicopter_h_
 #include <math.h>
+#include <stddef.h>
 #include <string.h>
 #ifndef helicopter_COMMON_INCLUDES_
 #define helicopter_COMMON_INCLUDES_
+#include <stdio.h>
+#include <string.h>
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
 #include "simstruc.h"
@@ -880,10 +883,10 @@ typedef struct {
   real_T Gain1;                        /* '<S3>/Gain1' */
   real_T Sum2;                         /* '<Root>/Sum2' */
   real_T Clock;                        /* '<S6>/Clock' */
+  real_T pitch_ref1[4];                /* '<Root>/pitch_ref1' */
   real_T Gain_l;                       /* '<S13>/Gain' */
   real_T BackmotorSaturation;          /* '<S5>/Back motor: Saturation' */
   real_T FrontmotorSaturation;         /* '<S5>/Front motor: Saturation' */
-  real_T pitch_ref1[4];                /* '<Root>/pitch_ref1' */
   real_T In1;                          /* '<S8>/In1' */
 } B_helicopter_T;
 
@@ -979,6 +982,24 @@ typedef struct {
   } Pitchreference_PWORK;              /* '<Root>/Pitch reference' */
 
   struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } pitch_ref1_PWORK;                  /* '<Root>/pitch_ref1' */
+
+  struct {
+    void *LoggedData;
+  } Scope_PWORK;                       /* '<Root>/Scope' */
+
+  struct {
+    void *FilePtr;
+  } ToFile_PWORK;                      /* '<Root>/To File' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace_PWORK_e;               /* '<Root>/To Workspace' */
+
+  struct {
     void *LoggedData;
   } Travel_PWORK;                      /* '<Root>/Travel' */
 
@@ -1031,20 +1052,6 @@ typedef struct {
   } Frontmotor_PWORK;                  /* '<S5>/Front motor' */
 
   void *HILWriteAnalog_PWORK;          /* '<S5>/HIL Write Analog' */
-  struct {
-    void *TimePtr;
-    void *DataPtr;
-    void *RSimInfoPtr;
-  } pitch_ref1_PWORK;                  /* '<Root>/pitch_ref1' */
-
-  struct {
-    void *LoggedData;
-  } Scope_PWORK;                       /* '<Root>/Scope' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace_PWORK_e;               /* '<Root>/To Workspace' */
-
   int32_T HILInitialize_ClockModes[3]; /* '<Root>/HIL Initialize' */
   int32_T HILInitialize_QuadratureModes[8];/* '<Root>/HIL Initialize' */
   int32_T HILInitialize_InitialEICounts[8];/* '<Root>/HIL Initialize' */
@@ -1060,6 +1067,11 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } pitch_ref1_IWORK;                  /* '<Root>/pitch_ref1' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile_IWORK;                      /* '<Root>/To File' */
 
   int8_T If_ActiveSubsystem;           /* '<S4>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S4>/If Action Subsystem' */

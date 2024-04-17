@@ -90,8 +90,8 @@
       paramMap.sections(2) = section;
       clear section
       
-      section.nData     = 57;
-      section.data(57)  = dumData; %prealloc
+      section.nData     = 51;
+      section.data(51)  = dumData; %prealloc
       
 	  ;% helicopter_P.HILInitialize_OOTerminate
 	  section.data(1).logicalSrcIdx = 12;
@@ -225,101 +225,77 @@
 	  section.data(33).logicalSrcIdx = 44;
 	  section.data(33).dtTransOffset = 32;
 	
-	  ;% helicopter_P.Step1_Time
+	  ;% helicopter_P.PitchCounttorad_Gain
 	  section.data(34).logicalSrcIdx = 45;
 	  section.data(34).dtTransOffset = 33;
 	
-	  ;% helicopter_P.Step1_Y0
+	  ;% helicopter_P.Gain_Gain_ar
 	  section.data(35).logicalSrcIdx = 46;
 	  section.data(35).dtTransOffset = 34;
 	
-	  ;% helicopter_P.Step1_YFinal
+	  ;% helicopter_P.PitchTransferFcn_A
 	  section.data(36).logicalSrcIdx = 47;
 	  section.data(36).dtTransOffset = 35;
 	
-	  ;% helicopter_P.Step_Time
+	  ;% helicopter_P.PitchTransferFcn_C
 	  section.data(37).logicalSrcIdx = 48;
 	  section.data(37).dtTransOffset = 36;
 	
-	  ;% helicopter_P.Step_Y0
+	  ;% helicopter_P.PitchTransferFcn_D
 	  section.data(38).logicalSrcIdx = 49;
 	  section.data(38).dtTransOffset = 37;
 	
-	  ;% helicopter_P.Step_YFinal
+	  ;% helicopter_P.Gain_Gain_ae
 	  section.data(39).logicalSrcIdx = 50;
 	  section.data(39).dtTransOffset = 38;
 	
-	  ;% helicopter_P.PitchCounttorad_Gain
+	  ;% helicopter_P.Gain1_Gain
 	  section.data(40).logicalSrcIdx = 51;
 	  section.data(40).dtTransOffset = 39;
 	
-	  ;% helicopter_P.Gain_Gain_ar
+	  ;% helicopter_P.Integrator_IC
 	  section.data(41).logicalSrcIdx = 52;
 	  section.data(41).dtTransOffset = 40;
 	
-	  ;% helicopter_P.PitchTransferFcn_A
+	  ;% helicopter_P.Integrator_UpperSat
 	  section.data(42).logicalSrcIdx = 53;
 	  section.data(42).dtTransOffset = 41;
 	
-	  ;% helicopter_P.PitchTransferFcn_C
+	  ;% helicopter_P.Integrator_LowerSat
 	  section.data(43).logicalSrcIdx = 54;
 	  section.data(43).dtTransOffset = 42;
 	
-	  ;% helicopter_P.PitchTransferFcn_D
+	  ;% helicopter_P.Gain1_Gain_i
 	  section.data(44).logicalSrcIdx = 55;
 	  section.data(44).dtTransOffset = 43;
 	
-	  ;% helicopter_P.Gain_Gain_ae
+	  ;% helicopter_P.Backgain_Gain
 	  section.data(45).logicalSrcIdx = 56;
 	  section.data(45).dtTransOffset = 44;
 	
-	  ;% helicopter_P.Gain1_Gain
+	  ;% helicopter_P.Frontgain_Gain
 	  section.data(46).logicalSrcIdx = 57;
 	  section.data(46).dtTransOffset = 45;
 	
-	  ;% helicopter_P.Integrator_IC
+	  ;% helicopter_P.Gain_Gain_a1
 	  section.data(47).logicalSrcIdx = 58;
 	  section.data(47).dtTransOffset = 46;
 	
-	  ;% helicopter_P.Integrator_UpperSat
+	  ;% helicopter_P.BackmotorSaturation_UpperSat
 	  section.data(48).logicalSrcIdx = 59;
 	  section.data(48).dtTransOffset = 47;
 	
-	  ;% helicopter_P.Integrator_LowerSat
+	  ;% helicopter_P.BackmotorSaturation_LowerSat
 	  section.data(49).logicalSrcIdx = 60;
 	  section.data(49).dtTransOffset = 48;
 	
-	  ;% helicopter_P.Gain1_Gain_i
+	  ;% helicopter_P.FrontmotorSaturation_UpperSat
 	  section.data(50).logicalSrcIdx = 61;
 	  section.data(50).dtTransOffset = 49;
 	
-	  ;% helicopter_P.Backgain_Gain
+	  ;% helicopter_P.FrontmotorSaturation_LowerSat
 	  section.data(51).logicalSrcIdx = 62;
 	  section.data(51).dtTransOffset = 50;
-	
-	  ;% helicopter_P.Frontgain_Gain
-	  section.data(52).logicalSrcIdx = 63;
-	  section.data(52).dtTransOffset = 51;
-	
-	  ;% helicopter_P.Gain_Gain_a1
-	  section.data(53).logicalSrcIdx = 64;
-	  section.data(53).dtTransOffset = 52;
-	
-	  ;% helicopter_P.BackmotorSaturation_UpperSat
-	  section.data(54).logicalSrcIdx = 65;
-	  section.data(54).dtTransOffset = 53;
-	
-	  ;% helicopter_P.BackmotorSaturation_LowerSat
-	  section.data(55).logicalSrcIdx = 66;
-	  section.data(55).dtTransOffset = 54;
-	
-	  ;% helicopter_P.FrontmotorSaturation_UpperSat
-	  section.data(56).logicalSrcIdx = 67;
-	  section.data(56).dtTransOffset = 55;
-	
-	  ;% helicopter_P.FrontmotorSaturation_LowerSat
-	  section.data(57).logicalSrcIdx = 68;
-	  section.data(57).dtTransOffset = 56;
 	
       nTotData = nTotData + section.nData;
       paramMap.sections(3) = section;
@@ -329,35 +305,35 @@
       section.data(8)  = dumData; %prealloc
       
 	  ;% helicopter_P.HILInitialize_CKChannels
-	  section.data(1).logicalSrcIdx = 69;
+	  section.data(1).logicalSrcIdx = 63;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_P.HILInitialize_DOWatchdog
-	  section.data(2).logicalSrcIdx = 70;
+	  section.data(2).logicalSrcIdx = 64;
 	  section.data(2).dtTransOffset = 3;
 	
 	  ;% helicopter_P.HILInitialize_EIInitial
-	  section.data(3).logicalSrcIdx = 71;
+	  section.data(3).logicalSrcIdx = 65;
 	  section.data(3).dtTransOffset = 4;
 	
 	  ;% helicopter_P.HILInitialize_POModes
-	  section.data(4).logicalSrcIdx = 72;
+	  section.data(4).logicalSrcIdx = 66;
 	  section.data(4).dtTransOffset = 5;
 	
 	  ;% helicopter_P.HILInitialize_POConfiguration
-	  section.data(5).logicalSrcIdx = 73;
+	  section.data(5).logicalSrcIdx = 67;
 	  section.data(5).dtTransOffset = 6;
 	
 	  ;% helicopter_P.HILInitialize_POAlignment
-	  section.data(6).logicalSrcIdx = 74;
+	  section.data(6).logicalSrcIdx = 68;
 	  section.data(6).dtTransOffset = 7;
 	
 	  ;% helicopter_P.HILInitialize_POPolarity
-	  section.data(7).logicalSrcIdx = 75;
+	  section.data(7).logicalSrcIdx = 69;
 	  section.data(7).dtTransOffset = 8;
 	
 	  ;% helicopter_P.HILReadEncoderTimebase_Clock
-	  section.data(8).logicalSrcIdx = 76;
+	  section.data(8).logicalSrcIdx = 70;
 	  section.data(8).dtTransOffset = 9;
 	
       nTotData = nTotData + section.nData;
@@ -368,31 +344,31 @@
       section.data(7)  = dumData; %prealloc
       
 	  ;% helicopter_P.HILInitialize_AIChannels
-	  section.data(1).logicalSrcIdx = 77;
+	  section.data(1).logicalSrcIdx = 71;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_P.HILInitialize_AOChannels
-	  section.data(2).logicalSrcIdx = 78;
+	  section.data(2).logicalSrcIdx = 72;
 	  section.data(2).dtTransOffset = 8;
 	
 	  ;% helicopter_P.HILInitialize_EIChannels
-	  section.data(3).logicalSrcIdx = 79;
+	  section.data(3).logicalSrcIdx = 73;
 	  section.data(3).dtTransOffset = 16;
 	
 	  ;% helicopter_P.HILInitialize_EIQuadrature
-	  section.data(4).logicalSrcIdx = 80;
+	  section.data(4).logicalSrcIdx = 74;
 	  section.data(4).dtTransOffset = 24;
 	
 	  ;% helicopter_P.HILInitialize_POChannels
-	  section.data(5).logicalSrcIdx = 81;
+	  section.data(5).logicalSrcIdx = 75;
 	  section.data(5).dtTransOffset = 25;
 	
 	  ;% helicopter_P.HILReadEncoderTimebase_Channels
-	  section.data(6).logicalSrcIdx = 82;
+	  section.data(6).logicalSrcIdx = 76;
 	  section.data(6).dtTransOffset = 33;
 	
 	  ;% helicopter_P.HILReadEncoderTimebase_SamplesI
-	  section.data(7).logicalSrcIdx = 83;
+	  section.data(7).logicalSrcIdx = 77;
 	  section.data(7).dtTransOffset = 36;
 	
       nTotData = nTotData + section.nData;
@@ -403,151 +379,151 @@
       section.data(37)  = dumData; %prealloc
       
 	  ;% helicopter_P.HILInitialize_Active
-	  section.data(1).logicalSrcIdx = 84;
+	  section.data(1).logicalSrcIdx = 78;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_P.HILInitialize_AOTerminate
-	  section.data(2).logicalSrcIdx = 85;
+	  section.data(2).logicalSrcIdx = 79;
 	  section.data(2).dtTransOffset = 1;
 	
 	  ;% helicopter_P.HILInitialize_AOExit
-	  section.data(3).logicalSrcIdx = 86;
+	  section.data(3).logicalSrcIdx = 80;
 	  section.data(3).dtTransOffset = 2;
 	
 	  ;% helicopter_P.HILInitialize_DOTerminate
-	  section.data(4).logicalSrcIdx = 87;
+	  section.data(4).logicalSrcIdx = 81;
 	  section.data(4).dtTransOffset = 3;
 	
 	  ;% helicopter_P.HILInitialize_DOExit
-	  section.data(5).logicalSrcIdx = 88;
+	  section.data(5).logicalSrcIdx = 82;
 	  section.data(5).dtTransOffset = 4;
 	
 	  ;% helicopter_P.HILInitialize_POTerminate
-	  section.data(6).logicalSrcIdx = 89;
+	  section.data(6).logicalSrcIdx = 83;
 	  section.data(6).dtTransOffset = 5;
 	
 	  ;% helicopter_P.HILInitialize_POExit
-	  section.data(7).logicalSrcIdx = 90;
+	  section.data(7).logicalSrcIdx = 84;
 	  section.data(7).dtTransOffset = 6;
 	
 	  ;% helicopter_P.HILInitialize_CKPStart
-	  section.data(8).logicalSrcIdx = 91;
+	  section.data(8).logicalSrcIdx = 85;
 	  section.data(8).dtTransOffset = 7;
 	
 	  ;% helicopter_P.HILInitialize_CKPEnter
-	  section.data(9).logicalSrcIdx = 92;
+	  section.data(9).logicalSrcIdx = 86;
 	  section.data(9).dtTransOffset = 8;
 	
 	  ;% helicopter_P.HILInitialize_CKStart
-	  section.data(10).logicalSrcIdx = 93;
+	  section.data(10).logicalSrcIdx = 87;
 	  section.data(10).dtTransOffset = 9;
 	
 	  ;% helicopter_P.HILInitialize_CKEnter
-	  section.data(11).logicalSrcIdx = 94;
+	  section.data(11).logicalSrcIdx = 88;
 	  section.data(11).dtTransOffset = 10;
 	
 	  ;% helicopter_P.HILInitialize_AIPStart
-	  section.data(12).logicalSrcIdx = 95;
+	  section.data(12).logicalSrcIdx = 89;
 	  section.data(12).dtTransOffset = 11;
 	
 	  ;% helicopter_P.HILInitialize_AIPEnter
-	  section.data(13).logicalSrcIdx = 96;
+	  section.data(13).logicalSrcIdx = 90;
 	  section.data(13).dtTransOffset = 12;
 	
 	  ;% helicopter_P.HILInitialize_AOPStart
-	  section.data(14).logicalSrcIdx = 97;
+	  section.data(14).logicalSrcIdx = 91;
 	  section.data(14).dtTransOffset = 13;
 	
 	  ;% helicopter_P.HILInitialize_AOPEnter
-	  section.data(15).logicalSrcIdx = 98;
+	  section.data(15).logicalSrcIdx = 92;
 	  section.data(15).dtTransOffset = 14;
 	
 	  ;% helicopter_P.HILInitialize_AOStart
-	  section.data(16).logicalSrcIdx = 99;
+	  section.data(16).logicalSrcIdx = 93;
 	  section.data(16).dtTransOffset = 15;
 	
 	  ;% helicopter_P.HILInitialize_AOEnter
-	  section.data(17).logicalSrcIdx = 100;
+	  section.data(17).logicalSrcIdx = 94;
 	  section.data(17).dtTransOffset = 16;
 	
 	  ;% helicopter_P.HILInitialize_AOReset
-	  section.data(18).logicalSrcIdx = 101;
+	  section.data(18).logicalSrcIdx = 95;
 	  section.data(18).dtTransOffset = 17;
 	
 	  ;% helicopter_P.HILInitialize_DOPStart
-	  section.data(19).logicalSrcIdx = 102;
+	  section.data(19).logicalSrcIdx = 96;
 	  section.data(19).dtTransOffset = 18;
 	
 	  ;% helicopter_P.HILInitialize_DOPEnter
-	  section.data(20).logicalSrcIdx = 103;
+	  section.data(20).logicalSrcIdx = 97;
 	  section.data(20).dtTransOffset = 19;
 	
 	  ;% helicopter_P.HILInitialize_DOStart
-	  section.data(21).logicalSrcIdx = 104;
+	  section.data(21).logicalSrcIdx = 98;
 	  section.data(21).dtTransOffset = 20;
 	
 	  ;% helicopter_P.HILInitialize_DOEnter
-	  section.data(22).logicalSrcIdx = 105;
+	  section.data(22).logicalSrcIdx = 99;
 	  section.data(22).dtTransOffset = 21;
 	
 	  ;% helicopter_P.HILInitialize_DOReset
-	  section.data(23).logicalSrcIdx = 106;
+	  section.data(23).logicalSrcIdx = 100;
 	  section.data(23).dtTransOffset = 22;
 	
 	  ;% helicopter_P.HILInitialize_EIPStart
-	  section.data(24).logicalSrcIdx = 107;
+	  section.data(24).logicalSrcIdx = 101;
 	  section.data(24).dtTransOffset = 23;
 	
 	  ;% helicopter_P.HILInitialize_EIPEnter
-	  section.data(25).logicalSrcIdx = 108;
+	  section.data(25).logicalSrcIdx = 102;
 	  section.data(25).dtTransOffset = 24;
 	
 	  ;% helicopter_P.HILInitialize_EIStart
-	  section.data(26).logicalSrcIdx = 109;
+	  section.data(26).logicalSrcIdx = 103;
 	  section.data(26).dtTransOffset = 25;
 	
 	  ;% helicopter_P.HILInitialize_EIEnter
-	  section.data(27).logicalSrcIdx = 110;
+	  section.data(27).logicalSrcIdx = 104;
 	  section.data(27).dtTransOffset = 26;
 	
 	  ;% helicopter_P.HILInitialize_POPStart
-	  section.data(28).logicalSrcIdx = 111;
+	  section.data(28).logicalSrcIdx = 105;
 	  section.data(28).dtTransOffset = 27;
 	
 	  ;% helicopter_P.HILInitialize_POPEnter
-	  section.data(29).logicalSrcIdx = 112;
+	  section.data(29).logicalSrcIdx = 106;
 	  section.data(29).dtTransOffset = 28;
 	
 	  ;% helicopter_P.HILInitialize_POStart
-	  section.data(30).logicalSrcIdx = 113;
+	  section.data(30).logicalSrcIdx = 107;
 	  section.data(30).dtTransOffset = 29;
 	
 	  ;% helicopter_P.HILInitialize_POEnter
-	  section.data(31).logicalSrcIdx = 114;
+	  section.data(31).logicalSrcIdx = 108;
 	  section.data(31).dtTransOffset = 30;
 	
 	  ;% helicopter_P.HILInitialize_POReset
-	  section.data(32).logicalSrcIdx = 115;
+	  section.data(32).logicalSrcIdx = 109;
 	  section.data(32).dtTransOffset = 31;
 	
 	  ;% helicopter_P.HILInitialize_OOReset
-	  section.data(33).logicalSrcIdx = 116;
+	  section.data(33).logicalSrcIdx = 110;
 	  section.data(33).dtTransOffset = 32;
 	
 	  ;% helicopter_P.HILInitialize_DOFinal
-	  section.data(34).logicalSrcIdx = 117;
+	  section.data(34).logicalSrcIdx = 111;
 	  section.data(34).dtTransOffset = 33;
 	
 	  ;% helicopter_P.HILInitialize_DOInitial
-	  section.data(35).logicalSrcIdx = 118;
+	  section.data(35).logicalSrcIdx = 112;
 	  section.data(35).dtTransOffset = 34;
 	
 	  ;% helicopter_P.HILReadEncoderTimebase_Active
-	  section.data(36).logicalSrcIdx = 119;
+	  section.data(36).logicalSrcIdx = 113;
 	  section.data(36).dtTransOffset = 35;
 	
 	  ;% helicopter_P.HILWriteAnalog_Active
-	  section.data(37).logicalSrcIdx = 120;
+	  section.data(37).logicalSrcIdx = 114;
 	  section.data(37).dtTransOffset = 36;
 	
       nTotData = nTotData + section.nData;
@@ -558,7 +534,7 @@
       section.data(1)  = dumData; %prealloc
       
 	  ;% helicopter_P.HILReadEncoderTimebase_Overflow
-	  section.data(1).logicalSrcIdx = 121;
+	  section.data(1).logicalSrcIdx = 115;
 	  section.data(1).dtTransOffset = 0;
 	
       nTotData = nTotData + section.nData;
@@ -843,8 +819,8 @@
       dworkMap.sections(3) = section;
       clear section
       
-      section.nData     = 38;
-      section.data(38)  = dumData; %prealloc
+      section.nData     = 39;
+      section.data(39)  = dumData; %prealloc
       
 	  ;% helicopter_DW.Elevation_PWORK.LoggedData
 	  section.data(1).logicalSrcIdx = 15;
@@ -938,65 +914,69 @@
 	  section.data(23).logicalSrcIdx = 37;
 	  section.data(23).dtTransOffset = 22;
 	
-	  ;% helicopter_DW.ToWorkspace_PWORK_l.LoggedData
+	  ;% helicopter_DW.ToFile_PWORK.FilePtr
 	  section.data(24).logicalSrcIdx = 38;
 	  section.data(24).dtTransOffset = 23;
 	
-	  ;% helicopter_DW.Travel_PWORK.LoggedData
+	  ;% helicopter_DW.ToWorkspace_PWORK_l.LoggedData
 	  section.data(25).logicalSrcIdx = 39;
 	  section.data(25).dtTransOffset = 24;
 	
-	  ;% helicopter_DW.Travelrate_PWORK.LoggedData
+	  ;% helicopter_DW.Travel_PWORK.LoggedData
 	  section.data(26).logicalSrcIdx = 40;
 	  section.data(26).dtTransOffset = 25;
 	
-	  ;% helicopter_DW.V_d_PWORK.LoggedData
+	  ;% helicopter_DW.Travelrate_PWORK.LoggedData
 	  section.data(27).logicalSrcIdx = 41;
 	  section.data(27).dtTransOffset = 26;
 	
-	  ;% helicopter_DW.V_s_PWORK.LoggedData
+	  ;% helicopter_DW.V_d_PWORK.LoggedData
 	  section.data(28).logicalSrcIdx = 42;
 	  section.data(28).dtTransOffset = 27;
 	
-	  ;% helicopter_DW.ElevationScopedegs_PWORK.LoggedData
+	  ;% helicopter_DW.V_s_PWORK.LoggedData
 	  section.data(29).logicalSrcIdx = 43;
 	  section.data(29).dtTransOffset = 28;
 	
-	  ;% helicopter_DW.ElevationScopedeg_PWORK.LoggedData
+	  ;% helicopter_DW.ElevationScopedegs_PWORK.LoggedData
 	  section.data(30).logicalSrcIdx = 44;
 	  section.data(30).dtTransOffset = 29;
 	
-	  ;% helicopter_DW.PitchScopedeg_PWORK.LoggedData
+	  ;% helicopter_DW.ElevationScopedeg_PWORK.LoggedData
 	  section.data(31).logicalSrcIdx = 45;
 	  section.data(31).dtTransOffset = 30;
 	
-	  ;% helicopter_DW.PtichrateScopedegs_PWORK.LoggedData
+	  ;% helicopter_DW.PitchScopedeg_PWORK.LoggedData
 	  section.data(32).logicalSrcIdx = 46;
 	  section.data(32).dtTransOffset = 31;
 	
-	  ;% helicopter_DW.PtichrateScopedegs1_PWORK.LoggedData
+	  ;% helicopter_DW.PtichrateScopedegs_PWORK.LoggedData
 	  section.data(33).logicalSrcIdx = 47;
 	  section.data(33).dtTransOffset = 32;
 	
-	  ;% helicopter_DW.TravelrateScopedegs_PWORK.LoggedData
+	  ;% helicopter_DW.PtichrateScopedegs1_PWORK.LoggedData
 	  section.data(34).logicalSrcIdx = 48;
 	  section.data(34).dtTransOffset = 33;
 	
-	  ;% helicopter_DW.TravelScopedeg_PWORK.LoggedData
+	  ;% helicopter_DW.TravelrateScopedegs_PWORK.LoggedData
 	  section.data(35).logicalSrcIdx = 49;
 	  section.data(35).dtTransOffset = 34;
 	
-	  ;% helicopter_DW.Backmotor_PWORK.LoggedData
+	  ;% helicopter_DW.TravelScopedeg_PWORK.LoggedData
 	  section.data(36).logicalSrcIdx = 50;
 	  section.data(36).dtTransOffset = 35;
 	
-	  ;% helicopter_DW.Frontmotor_PWORK.LoggedData
+	  ;% helicopter_DW.Backmotor_PWORK.LoggedData
 	  section.data(37).logicalSrcIdx = 51;
 	  section.data(37).dtTransOffset = 36;
 	
-	  ;% helicopter_DW.HILWriteAnalog_PWORK
+	  ;% helicopter_DW.Frontmotor_PWORK.LoggedData
 	  section.data(38).logicalSrcIdx = 52;
 	  section.data(38).dtTransOffset = 37;
+	
+	  ;% helicopter_DW.HILWriteAnalog_PWORK
+	  section.data(39).logicalSrcIdx = 53;
+	  section.data(39).dtTransOffset = 38;
 	
       nTotData = nTotData + section.nData;
       dworkMap.sections(4) = section;
@@ -1006,31 +986,31 @@
       section.data(7)  = dumData; %prealloc
       
 	  ;% helicopter_DW.HILInitialize_ClockModes
-	  section.data(1).logicalSrcIdx = 53;
+	  section.data(1).logicalSrcIdx = 54;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_DW.HILInitialize_QuadratureModes
-	  section.data(2).logicalSrcIdx = 54;
+	  section.data(2).logicalSrcIdx = 55;
 	  section.data(2).dtTransOffset = 3;
 	
 	  ;% helicopter_DW.HILInitialize_InitialEICounts
-	  section.data(3).logicalSrcIdx = 55;
+	  section.data(3).logicalSrcIdx = 56;
 	  section.data(3).dtTransOffset = 11;
 	
 	  ;% helicopter_DW.HILInitialize_POModeValues
-	  section.data(4).logicalSrcIdx = 56;
+	  section.data(4).logicalSrcIdx = 57;
 	  section.data(4).dtTransOffset = 19;
 	
 	  ;% helicopter_DW.HILInitialize_POAlignValues
-	  section.data(5).logicalSrcIdx = 57;
+	  section.data(5).logicalSrcIdx = 58;
 	  section.data(5).dtTransOffset = 27;
 	
 	  ;% helicopter_DW.HILInitialize_POPolarityVals
-	  section.data(6).logicalSrcIdx = 58;
+	  section.data(6).logicalSrcIdx = 59;
 	  section.data(6).dtTransOffset = 35;
 	
 	  ;% helicopter_DW.HILReadEncoderTimebase_Buffer
-	  section.data(7).logicalSrcIdx = 59;
+	  section.data(7).logicalSrcIdx = 60;
 	  section.data(7).dtTransOffset = 43;
 	
       nTotData = nTotData + section.nData;
@@ -1041,35 +1021,39 @@
       section.data(1)  = dumData; %prealloc
       
 	  ;% helicopter_DW.HILInitialize_POSortedChans
-	  section.data(1).logicalSrcIdx = 60;
+	  section.data(1).logicalSrcIdx = 61;
 	  section.data(1).dtTransOffset = 0;
 	
       nTotData = nTotData + section.nData;
       dworkMap.sections(6) = section;
       clear section
       
-      section.nData     = 5;
-      section.data(5)  = dumData; %prealloc
+      section.nData     = 6;
+      section.data(6)  = dumData; %prealloc
       
 	  ;% helicopter_DW.pitch_ref_IWORK.PrevIndex
-	  section.data(1).logicalSrcIdx = 61;
+	  section.data(1).logicalSrcIdx = 62;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_DW.x_1_IWORK.PrevIndex
-	  section.data(2).logicalSrcIdx = 62;
+	  section.data(2).logicalSrcIdx = 63;
 	  section.data(2).dtTransOffset = 1;
 	
 	  ;% helicopter_DW.x_2_IWORK.PrevIndex
-	  section.data(3).logicalSrcIdx = 63;
+	  section.data(3).logicalSrcIdx = 64;
 	  section.data(3).dtTransOffset = 2;
 	
 	  ;% helicopter_DW.x_3_IWORK.PrevIndex
-	  section.data(4).logicalSrcIdx = 64;
+	  section.data(4).logicalSrcIdx = 65;
 	  section.data(4).dtTransOffset = 3;
 	
 	  ;% helicopter_DW.x_4_IWORK.PrevIndex
-	  section.data(5).logicalSrcIdx = 65;
+	  section.data(5).logicalSrcIdx = 66;
 	  section.data(5).dtTransOffset = 4;
+	
+	  ;% helicopter_DW.ToFile_IWORK.Count
+	  section.data(6).logicalSrcIdx = 67;
+	  section.data(6).dtTransOffset = 5;
 	
       nTotData = nTotData + section.nData;
       dworkMap.sections(7) = section;
@@ -1079,11 +1063,11 @@
       section.data(2)  = dumData; %prealloc
       
 	  ;% helicopter_DW.If_ActiveSubsystem
-	  section.data(1).logicalSrcIdx = 66;
+	  section.data(1).logicalSrcIdx = 68;
 	  section.data(1).dtTransOffset = 0;
 	
 	  ;% helicopter_DW.IfActionSubsystem_SubsysRanBC
-	  section.data(2).logicalSrcIdx = 67;
+	  section.data(2).logicalSrcIdx = 69;
 	  section.data(2).dtTransOffset = 1;
 	
       nTotData = nTotData + section.nData;
@@ -1116,8 +1100,8 @@
   ;%
 
 
-  targMap.checksum0 = 458020824;
-  targMap.checksum1 = 2476244824;
-  targMap.checksum2 = 3480026742;
-  targMap.checksum3 = 974780563;
+  targMap.checksum0 = 3080726246;
+  targMap.checksum1 = 553526625;
+  targMap.checksum2 = 340964711;
+  targMap.checksum3 = 3033716769;
 

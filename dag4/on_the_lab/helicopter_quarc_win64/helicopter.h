@@ -7,9 +7,9 @@
  *
  * Code generation for model "helicopter".
  *
- * Model version              : 11.2
+ * Model version              : 11.3
  * Simulink Coder version : 9.4 (R2020b) 29-Jul-2020
- * C source code generated on : Tue Apr 16 13:44:15 2024
+ * C source code generated on : Wed Apr 17 13:22:23 2024
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -21,9 +21,12 @@
 #ifndef RTW_HEADER_helicopter_h_
 #define RTW_HEADER_helicopter_h_
 #include <math.h>
+#include <stddef.h>
 #include <string.h>
 #ifndef helicopter_COMMON_INCLUDES_
 #define helicopter_COMMON_INCLUDES_
+#include <stdio.h>
+#include <string.h>
 #include "rtwtypes.h"
 #include "zero_crossing_types.h"
 #include "simstruc.h"
@@ -999,8 +1002,8 @@ typedef struct {
   } Scope1_PWORK;                      /* '<Root>/Scope1' */
 
   struct {
-    void *LoggedData;
-  } Scope2_PWORK;                      /* '<Root>/Scope2' */
+    void *FilePtr;
+  } ToFile_PWORK;                      /* '<Root>/To File' */
 
   struct {
     void *LoggedData;
@@ -1082,6 +1085,11 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } FromWorkspace_IWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    int_T Count;
+    int_T Decimation;
+  } ToFile_IWORK;                      /* '<Root>/To File' */
 
   int8_T If_ActiveSubsystem;           /* '<S3>/If' */
   int8_T IfActionSubsystem_SubsysRanBC;/* '<S3>/If Action Subsystem' */

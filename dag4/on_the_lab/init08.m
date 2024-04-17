@@ -117,13 +117,13 @@ B = [ 0                0;
 mx = size(A,2); % Number of states (number of columns in A)
 mu = size(B,2); % Number of inputs(number of columns in B)
 
-q1 = .1; q2 = q1;
+q1 = 1; q2 = q1;
 alpha = 0.2;    beta = 20;
 lambda_0 = pi;  lambda_f = 0;   lambda_t = 2*pi/3;
 time_padding = 5; sim_t = 10;
 
 % Time horizon and initialization
-N  = 60;                                  % Time horizon for states
+N  = 40;                                  % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 n = N*mx+M*mu;
 z  = ones(N*mx+M*mu,1);                % Initialize z for the whole horizon
@@ -174,8 +174,8 @@ end
 
 %%Caclulate LQR gain
 
-Q = diag([3 .3 2 .5 3 .5]);
-R = diag([0.1 0.1]);
+Q = diag([1 1 1 1 1 1]);
+R = diag([1 1]);
 
 [K,P,e] = dlqr(A,B,Q,R,[]);
 
@@ -265,7 +265,7 @@ while ~strcmp('stopped', get_param(model_name, 'SimulationStatus'))
 end
 
 file_name=sprintf('LabDay%d_%s.mat',lab_day, test_condition);
-save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
+%save(file_name, 'time', 'travel', 'travel_rate', 'pitch', 'pitch_rate', 'elevation', 'elevation_rate', 'pitch_reference', 'elevation_reference', 'V_d', 'V_s', 'x_star');
 
 
 
