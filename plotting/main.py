@@ -2,6 +2,9 @@ import scipy.io
 import matplotlib.pyplot as plt
 import os
 
+# See this link to make sense of the data: 
+# https://obsidian.aatif.no/NTNU/6.-Semester/Optimalisering-og-regulering/Lab/
+
 def load_mat_file(file_path: str) -> dict:
     # Load the MATLAB file
     mat_data = scipy.io.loadmat(file_path)
