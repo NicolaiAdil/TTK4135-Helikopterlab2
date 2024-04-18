@@ -52,7 +52,7 @@ def plot_lab_day2():
 
     if choice == 1:
         optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
-        travel, travel_rate, pitch, pitch_rate = data['travel'], data['travel_rate'], data['pitch'], data['pitch_rate']
+        travel, travel_rate, pitch, pitch_rate = data['travel']+180, data['travel_rate'], data['pitch'], data['pitch_rate']
         time = data['time'].squeeze()
         print(time.shape)
         print(optimal_travel.shape)
@@ -102,7 +102,36 @@ def plot_lab_day2():
    
 def plot_lab_day3():
     data = choose_file_data(3)
-    print("Keys:", data.keys())
+    optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
+    travel, travel_rate, pitch, pitch_rate = data['travel'], data['travel_rate'], data['pitch'], data['pitch_rate']
+    elevation, elevation_reference = data['elevation'], data['elevation_reference']
+    time = data['time'].squeeze()
+    print(time.shape)
+    print(optimal_travel.shape)
+
+
+    # Plotting
+    fig, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 3 subplots
+
+    # Each subplot for each pair of variables
+    axs[0].plot(time, travel.squeeze(), label='Actual Travel')
+    axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--')
+    axs[0].set_title('Travel vs Optimal Travel')
+    axs[0].set_xlabel('Time (s)')
+    axs[0].set_ylabel('Travel (deg)')
+    axs[0].legend()
+    axs[0].grid(True)
+
+    axs[1].plot(time, pitch.squeeze(), label='Actual Pitch')
+    axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--')
+    axs[1].set_title('Pitch vs Optimal Pitch')
+    axs[1].set_xlabel('Time (s)')
+    axs[1].set_ylabel('Pitch (deg)')
+    axs[1].legend()
+    axs[1].grid(True)
+
+    plt.tight_layout()
+    plt.show()
 
 
 def plot_lab_day4():
