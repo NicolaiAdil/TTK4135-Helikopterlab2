@@ -43,17 +43,19 @@ def choose_file_data(LabDay: int) -> dict:
 
 def plot_lab_day2():
     data = choose_file_data(2)
-    print("Keys:", data.keys())
-    print(data['x_star'])
    
-    print("1. Plot different q values")
-    print("2. Plot different start pitch values")
+    print("")
+    print("Plot for different q-values")
+    print("1. Travel and Pitch vs Optimal Travel and Pitch")
+    print("2. How the input changes with different q-values")
     choice = int(input("Enter your choice: ")) 
 
+    time = data['time'].squeeze()
+
     if choice == 1:
+        header = input("Enter the header for the q-values: ")
         optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
         travel, travel_rate, pitch, pitch_rate = data['travel']+180, data['travel_rate'], data['pitch'], data['pitch_rate']
-        time = data['time'].squeeze()
 
         # Plotting
         fig, axs = plt.subplots(4, 1, figsize=(10, 20))  # Creating 4 subplots
@@ -94,6 +96,7 @@ def plot_lab_day2():
         plt.tight_layout()
         plt.show()
     elif choice == 2:
+
         print("TODO")
 
    
@@ -138,6 +141,7 @@ def plot_lab_day4():
 
 def main():
     while True:
+        os.system('clear')
         print("Select Lab Day to plot:")
         print("1. Lab Day 2")
         print("2. Lab Day 3")
