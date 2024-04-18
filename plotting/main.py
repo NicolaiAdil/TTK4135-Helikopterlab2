@@ -41,11 +41,6 @@ def load_file_data(file_path: str) -> dict:
     data['elevation_reference'] = np.degrees(raw_data[8])
     data['v_d'] = raw_data[9]
     data['v_s'] = raw_data[10]
-<<<<<<< HEAD
-    data['x_star'] = [np.degrees(x) for x in raw_data[11:17]]
-    if LabDay == 4:
-        data['constraint'] = raw_data[15]
-=======
 
     print(len(raw_data)) #day2,3 has 15 elements, day4 has 18 elements
     if len(raw_data) == 18:
@@ -54,7 +49,6 @@ def load_file_data(file_path: str) -> dict:
     else:
         data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
 
->>>>>>> cdb105ffd775476000d96cf368687794ce04ed00
 
     return data
 
@@ -160,17 +154,10 @@ def plot_lab_day2():
 
    
 def plot_lab_day3():
-<<<<<<< HEAD
-    data = choose_file_data(3)
-    optimal_travel, optimal_pitch, = data['x_star'][0], data['x_star'][2]
-    travel, pitch = data['travel'],data['pitch']
-=======
     file_path = get_file_path(3)
     data = load_file_data(file_path)
-    optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
-    travel, travel_rate, pitch, pitch_rate = data['travel'], data['travel_rate'], data['pitch'], data['pitch_rate']
-    elevation, elevation_reference = data['elevation'], data['elevation_reference']
->>>>>>> cdb105ffd775476000d96cf368687794ce04ed00
+    optimal_travel, optimal_pitch, = data['x_star'][0], data['x_star'][2]
+    travel, pitch = data['travel'],data['pitch']
     time = data['time'].squeeze()
     print(time.shape)
     print(optimal_travel.shape)
@@ -205,8 +192,8 @@ def plot_lab_day3():
 
 
 def plot_lab_day4():
-<<<<<<< HEAD
-    data = choose_file_data(4)
+    file_path = get_file_path(4)
+    data = load_file_data(file_path)
     print("Keys:", data.keys())
     print(data['x_star'])
 
@@ -250,10 +237,6 @@ def plot_lab_day4():
 
     plt.subplots_adjust(hspace=0.5)
     plt.show()
-=======
-    file_path = get_file_path(4)
-    data = load_file_data(file_path)
->>>>>>> cdb105ffd775476000d96cf368687794ce04ed00
 
 
 def main():
