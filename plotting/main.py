@@ -41,9 +41,14 @@ def load_file_data(file_path: str) -> dict:
     data['elevation_reference'] = np.degrees(raw_data[8])
     data['v_d'] = raw_data[9]
     data['v_s'] = raw_data[10]
-    data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
-    if len(raw_data) > 15:
-        data['constraint'] = raw_data[15]
+
+    print(len(raw_data)) #day2,3 has 15 elements, day4 has 18 elements
+    if len(raw_data) == 18:
+        data['x_star'] = [np.degrees(x) for x in raw_data[11:17]]
+        data['constraint'] = raw_data[17]
+    else:
+        data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
+
 
     return data
 
