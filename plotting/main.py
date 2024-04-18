@@ -42,13 +42,12 @@ def load_file_data(file_path: str) -> dict:
     data['v_d'] = raw_data[9]
     data['v_s'] = raw_data[10]
 
-    print(len(raw_data)) #day2,3 has 15 elements, day4 has 18 elements
+    #day2,3 has 15 elements (and one zero row due to me being noob), day4 has 18 elements
     if len(raw_data) == 18:
         data['x_star'] = [np.degrees(x) for x in raw_data[11:17]]
         data['constraint'] = raw_data[17]
     else:
         data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
-
 
     return data
 
