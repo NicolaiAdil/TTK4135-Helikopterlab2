@@ -192,51 +192,122 @@ def plot_lab_day3():
 
 
 def plot_lab_day4():
+    print("Select Plotting Option:")
+    print("1. Plot Travel, Pitch, and Elevation vs Optimal")
+    print("2. Plot Different N")
+    print("3. Plot Different q")
+    print("4. Exit")
+    choice = int(input("Enter your choice: "))
+    
     file_path = get_file_path(4)
     data = load_file_data(file_path)
-    print("Keys:", data.keys())
-    print(data['x_star'])
-
-    travel, pitch, elevation = data['travel'],  data['pitch'], data['elevation']
+    
+    travel, pitch, elevation = data['travel'], data['pitch'], data['elevation']
     optimal_travel, optimal_pitch, optimal_elevation = data['x_star'][0], data['x_star'][2], data['x_star'][4]
     time = data['time'].squeeze()
 
-    _, axs = plt.subplots(3, 1, figsize=(10, 20))  # Creating 2 subplots
+    if choice == 1:
+        _, axs = plt.subplots(3, 1, figsize=(10, 20))  # Creating 2 subplots
 
-    # Each subplot for each pair of variables
-    axs[0].plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
-    axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--',linewidth=LineWidth)
-    axs[0].set_title('Travel vs Optimal Travel',fontsize=TitleSize)
-    axs[0].set_xlabel('Time (s)',fontsize=FontSize)
-    axs[0].set_ylabel('Travel (deg)',fontsize=FontSize)
-    axs[0].legend(fontsize=FontSize)
-    axs[0].grid(True)    
-    axs[0].set_xlim(0,25) 
-    axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
+        axs[0].plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
+        axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--',linewidth=LineWidth)
+        axs[0].set_title('Travel vs Optimal Travel',fontsize=TitleSize)
+        axs[0].set_xlabel('Time (s)',fontsize=FontSize)
+        axs[0].set_ylabel('Travel (deg)',fontsize=FontSize)
+        axs[0].legend(fontsize=FontSize)
+        axs[0].grid(True)    
+        axs[0].set_xlim(0,25) 
+        axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
 
-    axs[1].plot(time, pitch.squeeze(), label='Actual Pitch',linewidth=LineWidth)
-    axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--',linewidth=LineWidth)
-    axs[1].set_title('Pitch vs Optimal Pitch',fontsize=TitleSize)
-    axs[1].set_xlabel('Time (s)',fontsize=FontSize)
-    axs[1].set_ylabel('Pitch (deg)',fontsize=FontSize)
-    axs[1].legend(fontsize=FontSize)
-    axs[1].grid(True)
-    axs[1].set_xlim(0,25)
-    axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
+        axs[1].plot(time, pitch.squeeze(), label='Actual Pitch',linewidth=LineWidth)
+        axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--',linewidth=LineWidth)
+        axs[1].set_title('Pitch vs Optimal Pitch',fontsize=TitleSize)
+        axs[1].set_xlabel('Time (s)',fontsize=FontSize)
+        axs[1].set_ylabel('Pitch (deg)',fontsize=FontSize)
+        axs[1].legend(fontsize=FontSize)
+        axs[1].grid(True)
+        axs[1].set_xlim(0,25)
+        axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
 
-    axs[2].plot(time, elevation.squeeze(), label='Actual Elevation',linewidth=LineWidth)
-    axs[2].plot(time, optimal_elevation.squeeze(), label='Optimal Elevation', linestyle='--',linewidth=LineWidth)
-    axs[2].set_title('Elevation vs Optimal Eleavtion',fontsize=TitleSize)
-    axs[2].set_xlabel('Time (s)',fontsize=FontSize)
-    axs[2].set_ylabel('Elevation (deg)',fontsize=FontSize)
-    axs[2].legend(fontsize=FontSize)
-    axs[2].grid(True)
-    axs[2].set_xlim(0,25)
-    axs[2].set_ylim(-10,15)
-    axs[2].tick_params(axis='both', which='major', labelsize=FontSize)
+        axs[2].plot(time, elevation.squeeze(), label='Actual Elevation',linewidth=LineWidth)
+        axs[2].plot(time, optimal_elevation.squeeze(), label='Optimal Elevation', linestyle='--',linewidth=LineWidth)
+        axs[2].set_title('Elevation vs Optimal Eleavtion',fontsize=TitleSize)
+        axs[2].set_xlabel('Time (s)',fontsize=FontSize)
+        axs[2].set_ylabel('Elevation (deg)',fontsize=FontSize)
+        axs[2].legend(fontsize=FontSize)
+        axs[2].grid(True)
+        axs[2].set_xlim(0,25)
+        axs[2].set_ylim(-10,15)
+        axs[2].tick_params(axis='both', which='major', labelsize=FontSize)
 
-    plt.subplots_adjust(hspace=0.5)
-    plt.show()
+        plt.subplots_adjust(hspace=0.5)
+        plt.show()
+
+    elif choice == 2:
+
+        data60 = load_file_data("data/LabDay4_N_equals_60_q_equals_1_unit_tune")
+        data40 = load_file_data("data/LabDay4_N_equals_40_q_equals_1_unit_tune")
+
+        travel60, elevation60 = data60['travel'], data60['elevation']
+        optimal_travel60,  optimal_elevation60 = data60['x_star'][0], data60['x_star'][4]
+
+        time60 = data60['time'].squeeze()
+
+        travel40, elevation40 = data40['travel'], data40['elevation']
+        optimal_travel40,  optimal_elevation40 = data40['x_star'][0], data40['x_star'][4]
+
+        time40 = data40['time'].squeeze()
+
+        _, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 2 subplots
+
+        axs[0].plot(time60, travel60.squeeze(), label='Actual Travel N = 60',linewidth=LineWidth,color='blue')
+        axs[0].plot(time60, optimal_travel60.squeeze(), label='Optimal Travel N = 60', linestyle='--',linewidth=LineWidth,color='blue')
+        axs[0].plot(time40, travel40.squeeze(), label='Actual Travel N = 40',linewidth=LineWidth,color='orange')
+        axs[0].plot(time40, optimal_travel40.squeeze(), label='Optimal Travel N = 40', linestyle='--',linewidth=LineWidth,color='orange')
+        axs[0].set_title('Travel vs Optimal Travel',fontsize=TitleSize)
+        axs[0].set_xlabel('Time (s)',fontsize=FontSize)
+        axs[0].set_ylabel('Travel (deg)',fontsize=FontSize)
+        axs[0].legend(fontsize=FontSize)
+        axs[0].grid(True)    
+        axs[0].set_xlim(0,25) 
+        axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
+
+        axs[1].plot(time60, elevation60.squeeze(), label='Actual Elevation N = 60',linewidth=LineWidth,color='blue')
+        axs[1].plot(time60, optimal_elevation60.squeeze(), label='Optimal Elevation = 60', linestyle='--',linewidth=LineWidth,color='blue')
+        axs[1].plot(time40, elevation40.squeeze(), label='Actual Elevation N = 40',linewidth=LineWidth,color='orange')
+        axs[1].plot(time40, optimal_elevation40.squeeze(), label='Optimal Elevation N = 40', linestyle='--',linewidth=LineWidth,color='orange')
+        axs[1].set_title('Pitch vs Optimal Pitch',fontsize=TitleSize)
+        axs[1].set_xlabel('Time (s)',fontsize=FontSize)
+        axs[1].set_ylabel('Pitch (deg)',fontsize=FontSize)
+        axs[1].legend(fontsize=FontSize)
+        axs[1].grid(True)
+        axs[1].set_xlim(0,25)
+        axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
+
+        plt.subplots_adjust(hspace=0.5)
+        plt.show()
+
+    elif choice == 3:
+        _, axs = plt.subplots(1, 1, figsize=(10, 10))  # Creating 2 subplots
+
+        axs.plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
+        axs.plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--',linewidth=LineWidth)
+        axs.set_title('Travel vs Optimal Travel',fontsize=TitleSize)
+        axs.set_xlabel('Time (s)',fontsize=FontSize)
+        axs.set_ylabel('Travel (deg)',fontsize=FontSize)
+        axs.legend(fontsize=FontSize)
+        axs.grid(True)    
+        axs.set_xlim(0,25) 
+        axs.tick_params(axis='both', which='major', labelsize=FontSize)
+
+        plt.show()
+
+    elif choice == 4:
+        pass  # Exit the function
+
+    else:
+        print("Invalid choice. Exiting.")
+
 
 
 def main():
