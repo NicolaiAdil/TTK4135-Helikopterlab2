@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
+fontSize = 20
+
 # See this link to make sense of the data: 
 # https://obsidian.aatif.no/NTNU/6.-Semester/Optimalisering-og-regulering/Lab/
 
@@ -111,26 +113,27 @@ def plot_lab_day3():
 
 
     # Plotting
-    fig, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 3 subplots
+    fig, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 2 subplots
 
     # Each subplot for each pair of variables
     axs[0].plot(time, travel.squeeze(), label='Actual Travel')
     axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--')
-    axs[0].set_title('Travel vs Optimal Travel')
-    axs[0].set_xlabel('Time (s)')
-    axs[0].set_ylabel('Travel (deg)')
-    axs[0].legend()
+    axs[0].set_title('Travel vs Optimal Travel',fontsize=fontSize)
+    axs[0].set_xlabel('Time (s)',fontsize=fontSize)
+    axs[0].set_ylabel('Travel (deg)',fontsize=fontSize)
+    axs[0].legend(fontsize=fontSize)
     axs[0].grid(True)
 
     axs[1].plot(time, pitch.squeeze(), label='Actual Pitch')
     axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--')
-    axs[1].set_title('Pitch vs Optimal Pitch')
-    axs[1].set_xlabel('Time (s)')
-    axs[1].set_ylabel('Pitch (deg)')
-    axs[1].legend()
+    axs[1].set_title('Pitch vs Optimal Pitch',fontsize=fontSize)
+    axs[1].set_xlabel('Time (s)',fontsize=fontSize)
+    axs[1].set_ylabel('Pitch (deg)',fontsize=fontSize)
+    axs[1].legend(fontsize=fontSize)
     axs[1].grid(True)
 
-    plt.tight_layout()
+    # plt.tight_layout()
+
     plt.show()
 
 
