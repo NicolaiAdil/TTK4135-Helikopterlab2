@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-fontSize = 20
+TitleSize = 40
+FontSize = 30
+LineWidth = 5
 
 # See this link to make sense of the data: 
 # https://obsidian.aatif.no/NTNU/6.-Semester/Optimalisering-og-regulering/Lab/
@@ -97,6 +99,7 @@ def plot_lab_day2():
         axs[3].grid(True)
 
         plt.tight_layout()
+        plt.subplots_adjust(hspace=0.5)
         plt.show()
     elif choice == 2:
         print("TODO")
@@ -116,23 +119,30 @@ def plot_lab_day3():
     fig, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 2 subplots
 
     # Each subplot for each pair of variables
-    axs[0].plot(time, travel.squeeze(), label='Actual Travel')
-    axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--')
-    axs[0].set_title('Travel vs Optimal Travel',fontsize=fontSize)
-    axs[0].set_xlabel('Time (s)',fontsize=fontSize)
-    axs[0].set_ylabel('Travel (deg)',fontsize=fontSize)
-    axs[0].legend(fontsize=fontSize)
-    axs[0].grid(True)
+    axs[0].plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
+    axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--',linewidth=LineWidth)
+    axs[0].set_title('Travel vs Optimal Travel',fontsize=TitleSize)
+    axs[0].set_xlabel('Time (s)',fontsize=FontSize)
+    axs[0].set_ylabel('Travel (deg)',fontsize=FontSize)
+    axs[0].legend(fontsize=FontSize)
+    axs[0].grid(True)    
+    axs[0].set_xlim(0,20) 
+    axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
 
-    axs[1].plot(time, pitch.squeeze(), label='Actual Pitch')
-    axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--')
-    axs[1].set_title('Pitch vs Optimal Pitch',fontsize=fontSize)
-    axs[1].set_xlabel('Time (s)',fontsize=fontSize)
-    axs[1].set_ylabel('Pitch (deg)',fontsize=fontSize)
-    axs[1].legend(fontsize=fontSize)
+    axs[1].plot(time, pitch.squeeze(), label='Actual Pitch',linewidth=LineWidth)
+    axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--',linewidth=LineWidth)
+    axs[1].set_title('Pitch vs Optimal Pitch',fontsize=TitleSize)
+    axs[1].set_xlabel('Time (s)',fontsize=FontSize)
+    axs[1].set_ylabel('Pitch (deg)',fontsize=FontSize)
+    axs[1].legend(fontsize=FontSize)
     axs[1].grid(True)
+    axs[1].set_xlim(0,20)
+    axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
 
-    # plt.tight_layout()
+    plt.subplots_adjust(hspace=0.4)
+    font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
+
+    
 
     plt.show()
 
