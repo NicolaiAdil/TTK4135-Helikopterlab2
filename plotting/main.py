@@ -38,7 +38,7 @@ def choose_file_data(LabDay: int) -> dict:
     data['elevation_reference'] = raw_data[8]
     data['v_d'] = raw_data[9]
     data['v_s'] = raw_data[10]
-    data['x_star'] = [np.degrees(x) for x in raw_data[11:15]]
+    data['x_star'] = [np.degrees(x) for x in raw_data[11:17]]
     if LabDay == 4:
         data['constraint'] = raw_data[15]
 
@@ -107,16 +107,15 @@ def plot_lab_day2():
    
 def plot_lab_day3():
     data = choose_file_data(3)
-    optimal_travel, optimal_travel_rate, optimal_pitch, optimal_pitch_rate = data['x_star'][0], data['x_star'][1], data['x_star'][2], data['x_star'][3]
-    travel, travel_rate, pitch, pitch_rate = data['travel'], data['travel_rate'], data['pitch'], data['pitch_rate']
-    elevation, elevation_reference = data['elevation'], data['elevation_reference']
+    optimal_travel, optimal_pitch, = data['x_star'][0], data['x_star'][2]
+    travel, pitch = data['travel'],data['pitch']
     time = data['time'].squeeze()
     print(time.shape)
     print(optimal_travel.shape)
 
 
     # Plotting
-    fig, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 2 subplots
+    _, axs = plt.subplots(2, 1, figsize=(10, 20))  # Creating 2 subplots
 
     # Each subplot for each pair of variables
     axs[0].plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
@@ -140,16 +139,54 @@ def plot_lab_day3():
     axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
 
     plt.subplots_adjust(hspace=0.4)
-    font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
-
-    
-
     plt.show()
 
 
 def plot_lab_day4():
     data = choose_file_data(4)
     print("Keys:", data.keys())
+    print(data['x_star'])
+
+    travel, pitch, elevation = data['travel'],  data['pitch'], data['elevation']
+    optimal_travel, optimal_pitch, optimal_elevation = data['x_star'][0], data['x_star'][2], data['x_star'][4]
+    time = data['time'].squeeze()
+
+    _, axs = plt.subplots(3, 1, figsize=(10, 20))  # Creating 2 subplots
+
+    # Each subplot for each pair of variables
+    axs[0].plot(time, travel.squeeze(), label='Actual Travel',linewidth=LineWidth)
+    axs[0].plot(time, optimal_travel.squeeze(), label='Optimal Travel', linestyle='--',linewidth=LineWidth)
+    axs[0].set_title('Travel vs Optimal Travel',fontsize=TitleSize)
+    axs[0].set_xlabel('Time (s)',fontsize=FontSize)
+    axs[0].set_ylabel('Travel (deg)',fontsize=FontSize)
+    axs[0].legend(fontsize=FontSize)
+    axs[0].grid(True)    
+    axs[0].set_xlim(0,25) 
+    axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
+
+    axs[1].plot(time, pitch.squeeze(), label='Actual Pitch',linewidth=LineWidth)
+    axs[1].plot(time, optimal_pitch.squeeze(), label='Optimal Pitch', linestyle='--',linewidth=LineWidth)
+    axs[1].set_title('Pitch vs Optimal Pitch',fontsize=TitleSize)
+    axs[1].set_xlabel('Time (s)',fontsize=FontSize)
+    axs[1].set_ylabel('Pitch (deg)',fontsize=FontSize)
+    axs[1].legend(fontsize=FontSize)
+    axs[1].grid(True)
+    axs[1].set_xlim(0,25)
+    axs[1].tick_params(axis='both', which='major', labelsize=FontSize)
+
+    axs[2].plot(time, elevation.squeeze(), label='Actual Elevation',linewidth=LineWidth)
+    axs[2].plot(time, optimal_elevation.squeeze(), label='Optimal Elevation', linestyle='--',linewidth=LineWidth)
+    axs[2].set_title('Elevation vs Optimal Eleavtion',fontsize=TitleSize)
+    axs[2].set_xlabel('Time (s)',fontsize=FontSize)
+    axs[2].set_ylabel('Elevation (deg)',fontsize=FontSize)
+    axs[2].legend(fontsize=FontSize)
+    axs[2].grid(True)
+    axs[2].set_xlim(0,25)
+    axs[2].set_ylim(-10,15)
+    axs[2].tick_params(axis='both', which='major', labelsize=FontSize)
+
+    plt.subplots_adjust(hspace=0.5)
+    plt.show()
 
 
 def main():
