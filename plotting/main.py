@@ -70,26 +70,28 @@ def plot_lab_day2():
     time_1_12 = data_q_equals_1_point_12['time'].squeeze()
     time_12 = data_q_equals_12['time'].squeeze()
 
-    # Limit data to the first 20 seconds
-    mask_0_12 = time_0_12 <= 20
-    mask_1_12 = time_1_12 <= 20
-    mask_12 = time_12 <= 20
-
     if choice == 1:
-        pitch_0_12 = data_q_equals_0_point_12['pitch'].squeeze()
-        pitch_1_12 = data_q_equals_1_point_12['pitch'].squeeze()
-        pitch_12 = data_q_equals_12['pitch'].squeeze()
 
-        travel_0_12 = data_q_equals_0_point_12['travel'].squeeze()
-        travel_1_12 = data_q_equals_1_point_12['travel'].squeeze()
-        travel_12 = data_q_equals_12['travel'].squeeze()
+        # Limit data to the first 20 seconds
+        mask_0_12 = time_0_12 <= 35
+        mask_1_12 = time_1_12 <= 35
+        mask_12 = time_12 <= 35
+
+        pitch_0_12 = data_q_equals_0_point_12['pitch'].squeeze()[mask_0_12]
+        pitch_1_12 = data_q_equals_1_point_12['pitch'].squeeze()[mask_1_12]
+        pitch_12 = data_q_equals_12['pitch'].squeeze()[mask_12]
+
+        travel_0_12 = data_q_equals_0_point_12['travel'].squeeze()[mask_0_12]
+        travel_1_12 = data_q_equals_1_point_12['travel'].squeeze()[mask_1_12]
+        travel_12 = data_q_equals_12['travel'].squeeze()[mask_12]
+
         # Plotting for choice 1: Travel and Pitch for different q-values
         fig, axs = plt.subplots(2, 1, figsize=(12, 12))
         
         # Plot for Travel
-        axs[0].plot(time_0_12, travel_0_12, 'r', label='q = 0.12', linewidth=LineWidth)
-        axs[0].plot(time_1_12, travel_1_12, 'g', label='q = 1.2', linewidth=LineWidth)
-        axs[0].plot(time_12, travel_12, 'b', label='q = 12', linewidth=LineWidth)
+        axs[0].plot(time_0_12[mask_0_12], travel_0_12, 'r', label='q = 0.12', linewidth=LineWidth)
+        axs[0].plot(time_1_12[mask_1_12], travel_1_12, 'g', label='q = 1.2', linewidth=LineWidth)
+        axs[0].plot(time_12[mask_12], travel_12, 'b', label='q = 12', linewidth=LineWidth)
         axs[0].set_title('Travel for Different q-values', fontsize=TitleSize)
         axs[0].set_xlabel('Time (s)', fontsize=FontSize)
         axs[0].set_ylabel('Travel (deg)', fontsize=FontSize)
@@ -98,9 +100,9 @@ def plot_lab_day2():
         axs[0].tick_params(axis='both', which='major', labelsize=FontSize)
 
         # Plot for Pitch
-        axs[1].plot(time_0_12, pitch_0_12, 'r', label='q = 0.12', linewidth=LineWidth)
-        axs[1].plot(time_1_12, pitch_1_12, 'g', label='q = 1.2', linewidth=LineWidth)
-        axs[1].plot(time_12, pitch_12, 'b', label='q = 12', linewidth=LineWidth)
+        axs[1].plot(time_0_12[mask_0_12], pitch_0_12, 'r', label='q = 0.12', linewidth=LineWidth)
+        axs[1].plot(time_1_12[mask_1_12], pitch_1_12, 'g', label='q = 1.2', linewidth=LineWidth)
+        axs[1].plot(time_12[mask_12], pitch_12, 'b', label='q = 12', linewidth=LineWidth)
         axs[1].set_title('Pitch for Different q-values', fontsize=TitleSize)
         axs[1].set_xlabel('Time (s)', fontsize=FontSize)
         axs[1].set_ylabel('Pitch (deg)', fontsize=FontSize)
@@ -112,6 +114,10 @@ def plot_lab_day2():
         plt.show()
         
     elif choice == 2:
+        mask_0_12 = time_0_12 <= 20
+        mask_1_12 = time_1_12 <= 20
+        mask_12 = time_12 <= 20
+
         pitch_ref_0_12 = data_q_equals_0_point_12['pitch_reference'].squeeze()
         pitch_ref_1_12 = data_q_equals_1_point_12['pitch_reference'].squeeze()
         pitch_ref_12 = data_q_equals_12['pitch_reference'].squeeze()
@@ -299,10 +305,10 @@ def main():
     while True:
         os.system('clear')
         print("Select Lab Day to plot:")
-        print("1. Lab Day 2")
-        print("2. Lab Day 3")
-        print("3. Lab Day 4")
-        print("4. Exit")
+        print("1. Exit")
+        print("2. Lab Day 2")
+        print("3. Lab Day 3")
+        print("4. Lab Day 4")
         choice = int(input("Enter your choice: "))
         if choice == 1:
             break
